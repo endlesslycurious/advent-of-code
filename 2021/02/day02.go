@@ -1,6 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+	"strconv"
+	"strings"
+)
 
 // Represents directions sub can move
 type Direction string
@@ -21,7 +28,48 @@ type Instruction struct {
 
 // Load instructions from input file
 func LoadInstructions(filename string) []Instruction {
-	return []Instruction{}
+	data := make([]Instruction, 0)
+
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+
+		tokens := strings.Split(line, " ")
+
+		var dir Direction
+		switch Direction(tokens[0]) {
+		case Forward:
+			dir = Forward
+		case Up:
+			dir = Up
+		case Down:
+			dir = Down
+		default:
+			panic("Unexpected direction")
+		}
+
+		mag, err := strconv.Atoi(tokens[1])
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		data = append(data, Instruction{dir, Magnitude(mag)})
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Println("Loaded ", len(data), " instructions from ", filename)
+
+	return data
 }
 
 func main() {
