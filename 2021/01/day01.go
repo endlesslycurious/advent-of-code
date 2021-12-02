@@ -48,8 +48,14 @@ func main() {
 func Part1(input []int) int {
 	var ans int
 
-	for _, val := range input {
-		fmt.Println(val)
+	if len(input) < 2 {
+		return 0
+	}
+
+	for i, j := 0, 1; j < len(input); i, j = i+1, j+1 {
+		if input[i] < input[j] {
+			ans++
+		}
 	}
 
 	return ans
