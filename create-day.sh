@@ -1,28 +1,35 @@
 #!/bin/bash
-
 # Make executable with chmod u+x <filename>.sh
 
-echo "Enter year e.g 2021"
-read year
-
-if [ ! -d "$year" ]
-then
-    echo "Year doesn't exist. Creating now"
-    mkdir ./$year
-    echo "Year created"
+# Check parameter count
+if [ "$#" -ne 2 ]; then
+    echo "Requires two parameters; year then day!"
+else
+    year=$1
+    day=$2
 fi
 
-echo "Enter day e.g 01"
-read day
-
-if [ ! -d "$yeear/$day" ]
+# Create year folder, if they don't exist
+if [ ! -d "$year" ]
 then
-    echo "Day doesn't exist. Creating now.."
+    echo "Year ${year} folder doesn't exist, creating.."
+    mkdir ./$year
+    echo "Year ${year} folder created!"
+else
+    echo "Year ${year} folder already exists, skipping."
+fi
+
+# Create day folder and files, if they don't exist
+if [ ! -d "$year/$day" ]
+then
+    echo "Day ${day} doesn't exist, creating.."
     mkdir ./$year/$day
 
     touch "./$year/$day/day${day}.txt"
     touch "./$year/$day/day${day}.go"
     touch "./$year/$day/day${day}_test.go"
 
-    echo "Day folder & files created!"
+    echo "Day ${day} folder & files created!"
+else
+    echo "Day ${day} folder already exists, skipping."
 fi
