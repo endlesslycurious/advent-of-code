@@ -40,8 +40,12 @@ func readfile(filename string) []int {
 
 func main() {
 	data := readfile("./2021/01/input.txt")
+
 	answer := Part1(data)
-	fmt.Println(answer)
+	fmt.Println("Part One: ", answer)
+
+	answer = Part2(data)
+	fmt.Println("Part Two: ", answer)
 }
 
 // Part1 solves the first problem
@@ -63,5 +67,22 @@ func Part1(input []int) int {
 
 // Part2 sovle the second problem
 func Part2(input []int) int {
-	return 0
+	var ans int
+
+	if len(input) < 3 {
+		return 0
+	}
+
+	prev := -1
+	for i, j, k := 0, 1, 2; k < len(input); i, j, k = i+1, j+1, k+1 {
+		current := input[i] + input[j] + input[k]
+
+		if prev > 0 && prev < current {
+			ans++
+		}
+
+		prev = current
+	}
+
+	return ans
 }
