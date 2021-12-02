@@ -39,7 +39,7 @@ func readfile(filename string) []int {
 }
 
 func main() {
-	data := readfile("./input.txt")
+	data := readfile("./2021/01/input.txt")
 	answer := Part1(data)
 	fmt.Println(answer)
 }
