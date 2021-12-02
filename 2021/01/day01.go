@@ -60,3 +60,8 @@ func Part1(input []int) int {
 
 	return ans
 }
+
+// Part2 sovle the second problem
+func Part2(input []int) int {
+	return 0
+}
