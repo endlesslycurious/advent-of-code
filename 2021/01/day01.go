@@ -35,6 +35,8 @@ func ReadIntsFile(filename string) []int {
 		log.Fatalln(err)
 	}
 
+	fmt.Println("Loaded ", len(data), " instructions from ", filename)
+
 	return data
 }
 
