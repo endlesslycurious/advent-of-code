@@ -11,10 +11,12 @@ const (
 	Down    Direction = "down"
 )
 
+type Magnitude int
+
 // Represents sub direction with magnitude, a line from input file
 type Instruction struct {
-	direction Direction
-	magnitude int
+	dir Direction
+	mag Magnitude
 }
 
 // Load instructions from input file
