@@ -1,0 +1,34 @@
+package main
+
+import (
+	"log"
+	"testing"
+)
+
+// Test input from problem
+var input = []Instruction{
+	{Forward, 5},
+	{Down, 5},
+	{Forward, 8},
+	{Up, 3},
+	{Down, 8},
+	{Forward, 2},
+}
+
+// Test part one solution
+func TestPart1(t *testing.T) {
+	result := 150
+	actual := Part1(input)
+	if actual != result {
+		log.Fatalln("FAIL! expected ", result, " got ", actual)
+	}
+}
+
+var benchInput = LoadInstructions("./input.txt")
+
+// Benchmark part one solution
+func BenchmarkPart1(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Part1(benchInput)
+	}
+}
