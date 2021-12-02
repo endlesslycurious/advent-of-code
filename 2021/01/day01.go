@@ -10,7 +10,7 @@ import (
 )
 
 //  Read the input file and return slice of ints
-func readfile(filename string) []int {
+func ReadIntsFile(filename string) []int {
 	data := make([]int, 0)
 
 	file, err := os.Open(filename)
@@ -39,7 +39,7 @@ func readfile(filename string) []int {
 }
 
 func main() {
-	data := readfile("./2021/01/input.txt")
+	data := ReadIntsFile("./2021/01/input.txt")
 
 	answer := Part1(data)
 	fmt.Println("Part One: ", answer)
