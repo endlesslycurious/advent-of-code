@@ -1,6 +1,6 @@
 # advent-of-code
 
-My advent of code solutions in [Go](https://go.dev). 
+My [advent of code](https://adventofcode.com) solutions in [Go](https://go.dev). 
 
 ## Structure
 Code is organised by year then day:
@@ -14,8 +14,19 @@ Code is organised by year then day:
 ```
 
 ## Testing
-It is intended you can run the tests from the root:
+It is intended you run the tests from the repository root:
+
 `go test ./2021/01/.`
 
-## Objectives
-Practice solving puzzles with Go and hopefully get 25 stars!
+
+## Benchmarking
+You also run the benchmarks from the repository root:
+
+`go test ./2021/01/. --bench .`
+
+## Progress
+Hoping to get at least 25 of 50 possible stars!
+
+| Day | Part 1 | Part 2 |
+| :---: | :---: | :---: |
+| 01 | ⭐️ | ⭐️ |
