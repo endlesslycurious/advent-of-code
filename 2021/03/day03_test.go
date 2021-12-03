@@ -21,7 +21,7 @@ var input = []string{
 }
 
 func TestPart1(t *testing.T) {
-	result := 22
+	result := 198
 	actual := Part1(input)
 	if actual != result {
 		log.Fatalln("FAIL! expected ", result, " got ", actual)

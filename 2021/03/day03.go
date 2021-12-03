@@ -41,6 +41,6 @@ func main() {
 	fmt.Println("Part 1 answer: ", answer)
 }
 
-func Part1(data []string) int {
+func Part1(input []string) int {
 	return 0
 }
