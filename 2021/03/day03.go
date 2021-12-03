@@ -42,5 +42,32 @@ func main() {
 }
 
 func Part1(input []string) int {
-	return 0
+	oneFreq := make(map[int]int, 5)
+	total := len(input)
+
+	// Generate freqency map of 1s in input
+	for _, data := range input {
+		for i, bit := range data {
+			if bit == '1' {
+				oneFreq[i]++
+			}
+		}
+	}
+
+	var gamma, epsilon int
+
+	// Use 1s frequency map to work out most common value per column/bit
+	// to assemble gamma & epsilon
+	for i, count := range oneFreq {
+		// five bits but indexed from zero
+		val := 1 << (4 - i)
+
+		if count > total/2 {
+			gamma = gamma | val
+		} else {
+			epsilon = epsilon | val
+		}
+	}
+
+	return gamma * epsilon
 }
