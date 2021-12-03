@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
@@ -91,16 +92,13 @@ func FilterByBit(origs []string, filter byte, index int) []string {
 
 // Convert binary string e.g. "01010" to integer
 func StrToBinary(in string) int {
-	var result int
+	val, err := strconv.ParseInt(in, 2, 32)
 
-	for i, val := range in {
-		pow := len(in) - 1 - i
-		if val == '1' {
-			result = result | (1 << pow)
-		}
+	if err != nil {
+		log.Fatalln(err)
 	}
 
-	return result
+	return int(val)
 }
 
 // Count all the inputs with 1 at specified index
