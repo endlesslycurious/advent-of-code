@@ -80,5 +80,19 @@ func main() {
 
 // Solve first problem for day 2
 func Part1(instructions []Instruction) int {
-	return 0
+	var horz, vert int
+
+	for _, ins := range instructions {
+
+		switch ins.dir {
+		case Up:
+			vert -= int(ins.mag)
+		case Down:
+			vert += int(ins.mag)
+		case Forward:
+			horz += int(ins.mag)
+		}
+	}
+
+	return horz * vert
 }
