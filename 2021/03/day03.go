@@ -133,8 +133,9 @@ func filterLog(log []string, filter filterByOneDecision) string {
 	bits := len(log[0])
 
 	for i := 0; i < bits; i++ {
-		oneCount := CountOnes(candidates, i)
+		// handle odd numbers of candidates correctly
 		half := float64(len(candidates)) / 2.0
+		oneCount := CountOnes(candidates, i)
 
 		if filter(oneCount, half) {
 			candidates = FilterByBit(candidates, '1', i)
