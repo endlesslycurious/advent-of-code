@@ -54,13 +54,14 @@ func Part1(input []string) int {
 		}
 	}
 
+	// bits indexed from zero not one
+	var bits = len(oneFreq) - 1
 	var gamma, epsilon int
 
 	// Use 1s frequency map to work out most common value per column/bit
 	// to assemble gamma & epsilon
 	for i, count := range oneFreq {
-		// five bits but indexed from zero
-		val := 1 << (4 - i)
+		val := 1 << (bits - i)
 
 		if count > total/2 {
 			gamma = gamma | val

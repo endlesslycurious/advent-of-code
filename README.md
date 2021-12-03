@@ -38,4 +38,4 @@ Hoping to get at least 25 of 50 possible stars!
 | :---: | :---: | :---: |
 | 01 | ⭐️ | ⭐️ |
 | 02 | ⭐️ | ⭐️ |
-| 03 | | |
+| 03 | ⭐️ | |
