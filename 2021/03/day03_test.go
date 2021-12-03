@@ -36,7 +36,7 @@ func TestPart2(t *testing.T) {
 	}
 }
 
-func TestFilter(t *testing.T) {
+func TestFilterByBit(t *testing.T) {
 	expected := []string{
 		"11110",
 		"10110",
@@ -46,7 +46,7 @@ func TestFilter(t *testing.T) {
 		"10000",
 		"11001",
 	}
-	actual := Filter(input, '1', 0)
+	actual := FilterByBit(input, '1', 0)
 
 	if len(actual) != len(expected) {
 		log.Fatalln("FAIL! expected length ", len(expected), " got ", len(actual))

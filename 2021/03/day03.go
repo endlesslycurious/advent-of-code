@@ -76,8 +76,8 @@ func Part1(input []string) int {
 	return gamma * epsilon
 }
 
-// return list of origs with filter set at specified index
-func Filter(origs []string, filter byte, index int) []string {
+// Return list of origs with filter set at specified index
+func FilterByBit(origs []string, filter byte, index int) []string {
 	filtered := make([]string, 0)
 
 	for _, orig := range origs {
@@ -89,7 +89,7 @@ func Filter(origs []string, filter byte, index int) []string {
 	return filtered
 }
 
-// convert binary string e.g. "01010" to integer
+// Convert binary string e.g. "01010" to integer
 func StrToBinary(in string) int {
 	var result int
 
@@ -103,7 +103,7 @@ func StrToBinary(in string) int {
 	return result
 }
 
-// count all the inputs with 1 at specified index
+// Count all the inputs with 1 at specified index
 func CountOnes(input []string, index int) float64 {
 	var count float64
 
@@ -116,46 +116,48 @@ func CountOnes(input []string, index int) float64 {
 	return count
 }
 
+// Filter by One decision logic type
+type filterByOneDecision func(x, y float64) bool
+
+// Gamma log filtering decision logic
+func filterGamma(count, half float64) bool {
+	return count >= half
+}
+
+// Epsilon log filtering decision logic
+func filterEpsilon(count, half float64) bool {
+	return count < half
+}
+
+// Filter log using supplied filter decision logic
+func filterLog(log []string, filter filterByOneDecision) string {
+	candidates := log
+	bits := len(log[0])
+
+	for i := 0; i < bits; i++ {
+		oneCount := CountOnes(candidates, i)
+		half := float64(len(candidates)) / 2.0
+
+		if filter(oneCount, half) {
+			candidates = FilterByBit(candidates, '1', i)
+		} else {
+			candidates = FilterByBit(candidates, '0', i)
+		}
+
+		if len(candidates) == 1 {
+			break
+		}
+	}
+
+	return candidates[0]
+}
+
 func Part2(input []string) int {
-	bits := len(input[0])
+	gammaStr := filterLog(input, filterGamma)
+	gamma := StrToBinary(gammaStr)
 
-	// Gamma
-	candidates := input
-	for i := 0; i < bits; i++ {
-		oneCount := CountOnes(candidates, i)
-		half := float64(len(candidates)) / 2.0
-
-		if oneCount >= half {
-			candidates = Filter(candidates, '1', i)
-		} else {
-			candidates = Filter(candidates, '0', i)
-		}
-
-		if len(candidates) == 1 {
-			break
-		}
-	}
-
-	gamma := StrToBinary(candidates[0])
-
-	// Epsilon
-	candidates = input
-	for i := 0; i < bits; i++ {
-		oneCount := CountOnes(candidates, i)
-		half := float64(len(candidates)) / 2.0
-
-		if oneCount < half {
-			candidates = Filter(candidates, '1', i)
-		} else {
-			candidates = Filter(candidates, '0', i)
-		}
-
-		if len(candidates) == 1 {
-			break
-		}
-	}
-
-	epsilon := StrToBinary(candidates[0])
+	epsilonStr := filterLog(input, filterEpsilon)
+	epsilon := StrToBinary(epsilonStr)
 
 	return gamma * epsilon
 }
