@@ -148,6 +148,10 @@ func filterLog(log []string, filter filterByOneDecision) string {
 		}
 	}
 
+	if len(candidates) != 1 {
+		panic("there should be exactly one candidate")
+	}
+
 	return candidates[0]
 }
 
