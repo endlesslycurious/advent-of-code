@@ -37,4 +37,4 @@ Hoping to get at least 25 of 50 possible stars!
 | Day | Part 1 | Part 2 |
 | :---: | :---: | :---: |
 | 01 | ⭐️ | ⭐️ |
-| 02 | | |
+| 02 | ⭐️ | |
