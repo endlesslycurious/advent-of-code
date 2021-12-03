@@ -39,6 +39,9 @@ func main() {
 
 	answer := Part1(input)
 	fmt.Println("Part 1 answer: ", answer)
+
+	answer = Part2(input)
+	fmt.Println("Part 2 answer: ", answer)
 }
 
 func Part1(input []string) int {
@@ -71,4 +74,8 @@ func Part1(input []string) int {
 	}
 
 	return gamma * epsilon
+}
+
+func Part2(input []string) int {
+	return 0
 }

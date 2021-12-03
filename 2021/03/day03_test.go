@@ -28,10 +28,24 @@ func TestPart1(t *testing.T) {
 	}
 }
 
+func TestPart2(t *testing.T) {
+	result := 230
+	actual := Part2(input)
+	if actual != result {
+		log.Fatalln("FAIL! expected ", result, " got ", actual)
+	}
+}
+
 var benchInput = ReadPowerBits("./input.txt")
 
 func BenchmarkPart1(b *testing.B) {
 	for n := 0; n < b.N; n++ {
 		Part1(benchInput)
+	}
+}
+
+func BenchmarkPart2(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Part2(benchInput)
 	}
 }
