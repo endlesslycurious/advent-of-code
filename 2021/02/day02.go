@@ -103,5 +103,20 @@ func Part1(instructions []Instruction) int {
 
 // Solve second problem for day 2
 func Part2(Instructions []Instruction) int {
-	return 0
+	var aim, depth, horz int
+
+	for _, ins := range Instructions {
+
+		switch ins.dir {
+		case Up:
+			aim -= int(ins.mag)
+		case Down:
+			aim += int(ins.mag)
+		case Forward:
+			horz += int(ins.mag)
+			depth += aim * int(ins.mag)
+		}
+	}
+
+	return depth * horz
 }
