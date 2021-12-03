@@ -36,6 +36,48 @@ func TestPart2(t *testing.T) {
 	}
 }
 
+func TestFilter(t *testing.T) {
+	expected := []string{
+		"11110",
+		"10110",
+		"10111",
+		"10101",
+		"11100",
+		"10000",
+		"11001",
+	}
+	actual := Filter(input, '1', 0)
+
+	if len(actual) != len(expected) {
+		log.Fatalln("FAIL! expected length ", len(expected), " got ", len(actual))
+	}
+}
+
+func TestStrToBinary(t *testing.T) {
+	inputs := []string{"00001", "10000", "01010"}
+	expected := []int{1, 16, 10}
+
+	for i, input := range inputs {
+		actual := StrToBinary(input)
+
+		if actual != expected[i] {
+			log.Fatalln("FAIL! Expected ", expected[i], " got ", actual)
+		}
+	}
+}
+
+func TestCountOnes(t *testing.T) {
+	counts := []float64{7, 5, 8, 7, 5}
+
+	for i, expected := range counts {
+		actual := CountOnes(input, i)
+
+		if actual != expected {
+			log.Fatalln("FAIL! Expected ", expected, " got ", actual)
+		}
+	}
+}
+
 var benchInput = ReadPowerBits("./input.txt")
 
 func BenchmarkPart1(b *testing.B) {
