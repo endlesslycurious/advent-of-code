@@ -74,8 +74,12 @@ func LoadInstructions(filename string) []Instruction {
 
 func main() {
 	input := LoadInstructions("./2021/02/input.txt")
+
 	answer := Part1(input)
 	fmt.Println("Part 1 answer: ", answer)
+
+	answer = Part2(input)
+	fmt.Println("Part 2 answer: ", answer)
 }
 
 // Solve first problem for day 2
@@ -95,4 +99,9 @@ func Part1(instructions []Instruction) int {
 	}
 
 	return horz * vert
+}
+
+// Solve second problem for day 2
+func Part2(Instructions []Instruction) int {
+	return 0
 }

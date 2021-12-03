@@ -32,3 +32,19 @@ func BenchmarkPart1(b *testing.B) {
 		Part1(benchInput)
 	}
 }
+
+// Test part two solution
+func TestPart2(t *testing.T) {
+	result := 900
+	actual := Part2(input)
+	if actual != result {
+		log.Fatalln("FAIL! expected ", result, " got ", actual)
+	}
+}
+
+// Benchmark part two solution
+func BenchmarkPart2(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		Part2(benchInput)
+	}
+}
