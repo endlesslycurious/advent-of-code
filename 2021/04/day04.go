@@ -10,9 +10,9 @@ import (
 )
 
 // read bingo numbers and boards from text file
-func ReadInputs(filename string) ([]int, []*Board) {
+func ReadInputs(filename string) ([]int, []Board) {
 	numbers := make([]int, 0)
-	boards := make([]*Board, 0)
+	boards := make([]Board, 0)
 
 	file, err := os.Open(filename)
 	if err != nil {
@@ -59,7 +59,7 @@ func ReadInputs(filename string) ([]int, []*Board) {
 				}
 			}
 
-			boards = append(boards, &Board{Numbers: boardNumbers})
+			boards = append(boards, Board{Numbers: boardNumbers})
 		}
 	}
 
@@ -175,10 +175,10 @@ func main() {
 	fmt.Println("Part2 Answer: ", answer)
 }
 
-func Part1(numbers []int, boards []*Board) int {
+func Part1(numbers []int, boards []Board) int {
 	for _, num := range numbers {
-		for _, board := range boards {
-			score := board.Update(num)
+		for idx := range boards {
+			score := boards[idx].Update(num)
 
 			// winner!
 			if score != 0 {
@@ -190,6 +190,6 @@ func Part1(numbers []int, boards []*Board) int {
 	return 0
 }
 
-func Part2(numbers []int, boards []*Board) int {
+func Part2(numbers []int, boards []Board) int {
 	return 0
 }
