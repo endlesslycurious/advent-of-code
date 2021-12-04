@@ -22,6 +22,15 @@ func TestPart1(T *testing.T) {
 	}
 }
 
+func TestPart2(T *testing.T) {
+	expected := 1924
+	actual := Part2(numbers, boards)
+
+	if expected != actual {
+		log.Fatalln("FAIL! Expected ", expected, " got ", actual)
+	}
+}
+
 func TestCheckColumns(T *testing.T) {
 	// test third column
 	called := []int{17, 23, 14, 3, 20}

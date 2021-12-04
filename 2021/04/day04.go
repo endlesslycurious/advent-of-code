@@ -167,6 +167,12 @@ func main() {
 
 	answer := Part1(numbers, boards)
 	fmt.Println("Part1 Answer: ", answer)
+
+	// reload inputs as Part1 will have modified the boards
+	_, boards = ReadInputs("./2021/04/input.txt")
+
+	answer = Part2(numbers, boards)
+	fmt.Println("Part2 Answer: ", answer)
 }
 
 func Part1(numbers []int, boards []*Board) int {
@@ -181,5 +187,9 @@ func Part1(numbers []int, boards []*Board) int {
 		}
 	}
 
+	return 0
+}
+
+func Part2(numbers []int, boards []*Board) int {
 	return 0
 }
