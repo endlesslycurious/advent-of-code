@@ -32,9 +32,9 @@ func TestPart2(T *testing.T) {
 }
 
 func TestCheckColumns(T *testing.T) {
-	// test third column
+	// test third column of first board
 	called := []int{17, 23, 14, 3, 20}
-	board := Board{Numbers: []int{22, 13, 17, 11, 0, 8, 2, 23, 4, 24, 21, 9, 14, 16, 7, 6, 10, 3, 18, 5, 1, 12, 20, 15, 19}}
+	board := boards[0]
 
 	for _, num := range called {
 		board.Update(num)
@@ -46,9 +46,9 @@ func TestCheckColumns(T *testing.T) {
 }
 
 func TestCheckRows(T *testing.T) {
-	// test third row
+	// test third row of first board
 	called := []int{21, 9, 14, 16, 7}
-	board := Board{Numbers: []int{22, 13, 17, 11, 0, 8, 2, 23, 4, 24, 21, 9, 14, 16, 7, 6, 10, 3, 18, 5, 1, 12, 20, 15, 19}}
+	board := boards[0]
 
 	for _, num := range called {
 		board.Update(num)
