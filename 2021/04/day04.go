@@ -9,6 +9,69 @@ import (
 	"strings"
 )
 
+// read bingo numbers and boards from text file
+func ReadInputs(filename string) ([]int, []*Board) {
+	numbers := make([]int, 0)
+	boards := make([]*Board, 0)
+
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+
+	// first line is the bingo numbers
+	read := scanner.Scan()
+	if !read {
+		panic("Problem reading numbers line")
+	}
+
+	numLine := scanner.Text()
+	for _, numStr := range strings.Split(numLine, ",") {
+		num := ParseInt(numStr)
+		numbers = append(numbers, num)
+	}
+
+	// rest of file is board definitions
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+
+		// new line marks start of a board definition, next X lines are the rows
+		if len(line) == 0 {
+			boardNumbers := make([]int, 0, boardNumCount)
+
+			for i := 0; i < boardSide; i++ {
+				read := scanner.Scan()
+				if !read {
+					panic("Problem reading board line")
+				}
+
+				rowStr := scanner.Text()
+				for _, numStr := range strings.Split(rowStr, " ") {
+					// space padded input numbers
+					if len(numStr) > 0 {
+						num := ParseInt(numStr)
+						boardNumbers = append(boardNumbers, num)
+					}
+				}
+			}
+
+			boards = append(boards, &Board{Numbers: boardNumbers})
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		log.Fatalln(err)
+	}
+
+	fmt.Println("Loaded ", len(numbers), " numbers and ", len(boards), " boards from ", filename)
+
+	return numbers, boards
+}
+
 const (
 	boardSide     = 5
 	boardNumCount = boardSide * boardSide
@@ -97,69 +160,6 @@ func ParseInt(in string) int {
 	}
 
 	return num
-}
-
-// read bingo numbers and boards from text file
-func ReadInputs(filename string) ([]int, []*Board) {
-	numbers := make([]int, 0)
-	boards := make([]*Board, 0)
-
-	file, err := os.Open(filename)
-	if err != nil {
-		log.Fatalln(err)
-	}
-
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-
-	// first line is the bingo numbers
-	read := scanner.Scan()
-	if !read {
-		panic("Problem reading numbers line")
-	}
-
-	numLine := scanner.Text()
-	for _, numStr := range strings.Split(numLine, ",") {
-		num := ParseInt(numStr)
-		numbers = append(numbers, num)
-	}
-
-	// rest of file is board definitions
-	for scanner.Scan() {
-		line := strings.TrimSpace(scanner.Text())
-
-		// new line marks start of a board definition, next X lines are the rows
-		if len(line) == 0 {
-			boardNumbers := make([]int, 0, boardNumCount)
-
-			for i := 0; i < boardSide; i++ {
-				read := scanner.Scan()
-				if !read {
-					panic("Problem reading board line")
-				}
-
-				rowStr := scanner.Text()
-				for _, numStr := range strings.Split(rowStr, " ") {
-					// space padded input numbers
-					if len(numStr) > 0 {
-						num := ParseInt(numStr)
-						boardNumbers = append(boardNumbers, num)
-					}
-				}
-			}
-
-			boards = append(boards, &Board{Numbers: boardNumbers})
-		}
-	}
-
-	if err := scanner.Err(); err != nil {
-		log.Fatalln(err)
-	}
-
-	fmt.Println("Loaded ", len(numbers), " numbers and ", len(boards), " boards from ", filename)
-
-	return numbers, boards
 }
 
 func main() {
