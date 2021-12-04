@@ -12,16 +12,31 @@ import (
 const (
 	boardSide     = 5
 	boardNumCount = boardSide * boardSide
+	calledMarker  = -1
 )
 
 // Represents a 5x5 bingo board
 type Board struct {
 	Numbers []int
-	Score   int
+	Marked  []int
 }
 
 // Update board with latest number and return score (non-zero) if bingo
-func (b *Board) Update(num int) int {
+func (b *Board) Update(calledNum int) int {
+	// mark the called number if it exists in the board
+	for i, num := range b.Numbers {
+		if num == calledNum {
+			b.Numbers[i] = calledMarker
+			b.Marked = append(b.Marked, calledNum)
+			break
+		}
+	}
+
+	// check for Bingo if marked > boardSide
+	if len(b.Marked) >= boardSide {
+		fmt.Println(len(b.Marked))
+	}
+
 	return 0
 }
 
@@ -36,9 +51,9 @@ func ParseInt(in string) int {
 }
 
 // read bingo numbers and boards from text file
-func ReadInputs(filename string) ([]int, []Board) {
+func ReadInputs(filename string) ([]int, []*Board) {
 	numbers := make([]int, 0)
-	boards := make([]Board, 0)
+	boards := make([]*Board, 0)
 
 	file, err := os.Open(filename)
 	if err != nil {
@@ -85,8 +100,7 @@ func ReadInputs(filename string) ([]int, []Board) {
 				}
 			}
 
-			board := Board{boardNumbers, 0}
-			boards = append(boards, board)
+			boards = append(boards, &Board{Numbers: boardNumbers})
 		}
 	}
 
@@ -106,6 +120,17 @@ func main() {
 	fmt.Println("Part1 Answer: ", answer)
 }
 
-func Part1(numbers []int, boards []Board) int {
+func Part1(numbers []int, boards []*Board) int {
+	for _, num := range numbers {
+		for _, board := range boards {
+			score := board.Update(num)
+
+			// winner!
+			if score != 0 {
+				return score * num
+			}
+		}
+	}
+
 	return 0
 }
