@@ -21,3 +21,43 @@ func TestPart1(T *testing.T) {
 		log.Fatalln("FAIL! Expected ", expected, " got ", actual)
 	}
 }
+
+func TestCheckColumns(T *testing.T) {
+	// test third column
+	called := []int{17, 23, 14, 3, 20}
+	board := Board{Numbers: []int{22, 13, 17, 11, 0, 8, 2, 23, 4, 24, 21, 9, 14, 16, 7, 6, 10, 3, 18, 5, 1, 12, 20, 15, 19}}
+	expected := 4460
+
+	var actual int
+	for _, num := range called {
+		actual = board.Update(num)
+	}
+
+	if actual == 0 {
+		log.Fatalln("FAIL! No bingo found!")
+	}
+
+	if actual != expected {
+		log.Fatalln("FAIL! Expected ", expected, " got ", actual)
+	}
+}
+
+func TestCheckRows(T *testing.T) {
+	// test third row
+	called := []int{21, 9, 14, 16, 7}
+	board := Board{Numbers: []int{22, 13, 17, 11, 0, 8, 2, 23, 4, 24, 21, 9, 14, 16, 7, 6, 10, 3, 18, 5, 1, 12, 20, 15, 19}}
+	expected := 1631
+
+	var actual int
+	for _, num := range called {
+		actual = board.Update(num)
+	}
+
+	if actual == 0 {
+		log.Fatalln("FAIL! No bingo found!")
+	}
+
+	if actual != expected {
+		log.Fatalln("FAIL! Expected ", expected, " got ", actual)
+	}
+}

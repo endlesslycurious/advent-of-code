@@ -21,6 +21,44 @@ type Board struct {
 	Marked  []int
 }
 
+func (b *Board) CheckRows() bool {
+	for i := 0; i < boardNumCount; i += boardSide {
+		var markers int
+
+		for j := 0; j < boardSide; j++ {
+			idx := i + j
+
+			if b.Numbers[idx] == calledMarker {
+				markers++
+			}
+		}
+
+		if markers == boardSide {
+			return true
+		}
+	}
+	return false
+}
+
+func (b *Board) CheckColumns() bool {
+	for i := 0; i < boardSide; i++ {
+		var markers int
+
+		for j := 0; j < boardNumCount; j += boardSide {
+			idx := i + j
+
+			if b.Numbers[idx] == calledMarker {
+				markers++
+			}
+		}
+
+		if markers == boardSide {
+			return true
+		}
+	}
+	return false
+}
+
 // Update board with latest number and return score (non-zero) if bingo
 func (b *Board) Update(calledNum int) int {
 	// mark the called number if it exists in the board
@@ -32,12 +70,23 @@ func (b *Board) Update(calledNum int) int {
 		}
 	}
 
-	// check for Bingo if marked > boardSide
+	// check for potential Bingo if marked > boardSide
+	var score int
 	if len(b.Marked) >= boardSide {
-		fmt.Println(len(b.Marked))
+		if b.CheckRows() || b.CheckColumns() {
+			for _, num := range b.Numbers {
+				if num != calledMarker {
+					score += num
+				}
+			}
+
+			if calledNum != 0 {
+				score *= calledNum
+			}
+		}
 	}
 
-	return 0
+	return score
 }
 
 func ParseInt(in string) int {
@@ -127,7 +176,7 @@ func Part1(numbers []int, boards []*Board) int {
 
 			// winner!
 			if score != 0 {
-				return score * num
+				return score
 			}
 		}
 	}
