@@ -41,7 +41,22 @@ func ParsePoint(in string) Point {
 	return Point{x, y}
 }
 
-func LoadLines(filename string) []Line {
+// Update topLeft, bottomRight extents from point
+func UpdateExtents(point Point, bottomRight, topLeft *Point) {
+	if point.x < topLeft.x {
+		topLeft.x = point.x
+	} else if point.x > bottomRight.x {
+		bottomRight.x = point.x
+	}
+
+	if point.y < topLeft.y {
+		topLeft.y = point.y
+	} else if point.y > bottomRight.y {
+		bottomRight.y = point.y
+	}
+}
+
+func LoadLines(filename string) ([]Line, Point, Point) {
 	data := make([]Line, 0)
 
 	file, err := os.Open(filename)
@@ -50,6 +65,8 @@ func LoadLines(filename string) []Line {
 	}
 
 	defer file.Close()
+
+	var topLeft, bottomRight Point
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
@@ -60,22 +77,27 @@ func LoadLines(filename string) []Line {
 		start := ParsePoint(pointsStr[0])
 		end := ParsePoint(pointsStr[1])
 
+		UpdateExtents(start, &bottomRight, &topLeft)
+		UpdateExtents(end, &bottomRight, &topLeft)
+
 		data = append(data, Line{start, end})
 	}
+
+	fmt.Println(topLeft, bottomRight)
 
 	if err := scanner.Err(); err != nil {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded ", len(data), " lines from ", filename)
+	fmt.Println("Loaded", len(data), "lines from", filename, "with extents", topLeft, "to", bottomRight)
 
-	return data
+	return data, topLeft, bottomRight
 }
 
 func main() {
-	input := LoadLines("./2021/05/input.txt")
+	input, topLeft, bottomRight := LoadLines("./2021/05/input.txt")
 
-	answer := Part1(input)
+	answer := Part1(input, topLeft, bottomRight)
 	fmt.Println("Part 1 Answer: ", answer)
 }
 
@@ -89,6 +111,6 @@ type Line struct {
 	end   Point
 }
 
-func Part1(input []Line) int {
+func Part1(input []Line, topLeft, bottomRight Point) int {
 	return 0
 }
