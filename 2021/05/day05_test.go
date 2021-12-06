@@ -27,10 +27,10 @@ func TestUpdateExtents(T *testing.T) {
 	}
 
 	if topLeft.x != 0 || topLeft.y != 0 {
-		log.Fatalln("FAIL! Expected ", Point{0, 0}, "got", topLeft)
+		log.Fatalln("FAIL! Expected", Point{0, 0}, "got", topLeft)
 	}
 	if bottomRight.x != 9 || bottomRight.y != 9 {
-		log.Fatalln("FAIL! Expected ", Point{9, 9}, "got", bottomRight)
+		log.Fatalln("FAIL! Expected", Point{9, 9}, "got", bottomRight)
 	}
 }
 
@@ -73,6 +73,6 @@ func TestPart1(T *testing.T) {
 	actual := Part1(input, topLeft, bottomRight)
 
 	if expected != actual {
-		log.Fatalln("FAIL! Expected ", expected, " got ", actual)
+		log.Fatalln("FAIL! Expected", expected, "got", actual)
 	}
 }
