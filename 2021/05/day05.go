@@ -111,6 +111,22 @@ type Line struct {
 	end   Point
 }
 
+func (l Line) Horizontal() bool {
+	return l.start.x == l.end.x
+}
+
+func (l Line) Vertical() bool {
+	return l.start.y == l.end.y
+}
+
 func Part1(input []Line, topLeft, bottomRight Point) int {
-	return 0
+	var overlap int
+
+	for _, line := range input {
+		if line.Horizontal() || line.Vertical() {
+			// process line
+		}
+	}
+
+	return overlap
 }
