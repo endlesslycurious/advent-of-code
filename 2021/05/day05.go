@@ -168,32 +168,36 @@ func (g *Grid) Intersections() int {
 	return intersections
 }
 
+func (g *Grid) AddVerticalLine(begin, end, x int) {
+	// line direction may not be positive along y!
+	if begin > end {
+		begin, end = end, begin
+	}
+
+	for y := begin; y <= end; y++ {
+		g.Increment(x, y)
+	}
+}
+
+func (g *Grid) AddHorizontalLine(begin, end, y int) {
+	// line direction may not be positive along x!
+	if begin > end {
+		begin, end = end, begin
+	}
+
+	for x := begin; x <= end; x++ {
+		g.Increment(x, y)
+	}
+}
+
 func Part1(input []Line, topLeft, bottomRight Point) int {
 	grid := CreateGrid()
 
 	for _, line := range input {
 		if line.Vertical() {
-			// line direction may not be positive along y!
-			begin, end := line.start.y, line.end.y
-
-			if begin > end {
-				begin, end = end, begin
-			}
-
-			for y := begin; y <= end; y++ {
-				grid.Increment(line.start.x, y)
-			}
+			grid.AddVerticalLine(line.start.y, line.end.y, line.start.x)
 		} else if line.Horizontal() {
-			// line direction may not be positive along x!
-			begin, end := line.start.x, line.end.x
-
-			if begin > end {
-				begin, end = end, begin
-			}
-
-			for x := begin; x <= end; x++ {
-				grid.Increment(x, line.start.y)
-			}
+			grid.AddHorizontalLine(line.start.x, line.end.x, line.start.y)
 		}
 	}
 
