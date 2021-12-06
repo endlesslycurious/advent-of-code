@@ -99,6 +99,9 @@ func main() {
 
 	answer := Part1(input, topLeft, bottomRight)
 	fmt.Println("Part 1 Answer: ", answer)
+
+	answer = Part2(input)
+	fmt.Println("Part 2 Answer: ", answer)
 }
 
 type Point struct {
@@ -197,4 +200,10 @@ func Part1(input []Line, topLeft, bottomRight Point) int {
 	overlap := grid.Intersections()
 
 	return overlap
+}
+
+func Part2(input []Line) int {
+	var intersections int
+
+	return intersections
 }

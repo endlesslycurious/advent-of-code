@@ -76,3 +76,13 @@ func TestPart1(T *testing.T) {
 		log.Fatalln("FAIL! Expected", expected, "got", actual)
 	}
 }
+
+func TestPart2(T *testing.T) {
+	expected := 12
+
+	actual := Part2(input)
+
+	if expected != actual {
+		log.Fatalln("FAIL! Expected", expected, "got", actual)
+	}
+}
