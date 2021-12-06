@@ -34,6 +34,37 @@ func TestUpdateExtents(T *testing.T) {
 	}
 }
 
+func TestGridIncrement(T *testing.T) {
+	grid := CreateGrid()
+
+	expected := []int{1, 2, 3, 1, 4}
+	inputs := []Point{{0, 0}, {0, 0}, {0, 0}, {1, 1}, {0, 0}}
+
+	for i := range expected {
+		actual := grid.Increment(inputs[i].x, inputs[i].y)
+
+		if expected[i] != actual {
+			log.Fatalln("FAIL! Expected", expected[i], "got", actual)
+		}
+	}
+}
+
+func TestGridIntersections(T *testing.T) {
+	grid := CreateGrid()
+	inputs := []Point{{0, 0}, {0, 0}, {0, 0}, {1, 1}, {0, 0}}
+	expected := 1
+
+	for i := range inputs {
+		grid.Increment(inputs[i].x, inputs[i].y)
+	}
+
+	actual := grid.Intersections()
+
+	if actual != expected {
+		log.Fatalln("FAIL! Expected", expected, "got", actual)
+	}
+}
+
 func TestPart1(T *testing.T) {
 	expected := 5
 	topLeft := Point{0, 0}

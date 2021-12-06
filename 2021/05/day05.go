@@ -111,22 +111,82 @@ type Line struct {
 	end   Point
 }
 
-func (l Line) Horizontal() bool {
+func (l Line) Vertical() bool {
 	return l.start.x == l.end.x
 }
 
-func (l Line) Vertical() bool {
+func (l Line) Horizontal() bool {
 	return l.start.y == l.end.y
 }
 
-func Part1(input []Line, topLeft, bottomRight Point) int {
-	var overlap int
+type Grid struct {
+	data map[int]map[int]int
+}
 
-	for _, line := range input {
-		if line.Horizontal() || line.Vertical() {
-			// process line
+func CreateGrid() Grid {
+	var grid Grid
+
+	grid.data = make(map[int]map[int]int)
+
+	return grid
+}
+
+// increment count of point on the grid
+func (g *Grid) Increment(x, y int) int {
+	_, exists := g.data[x]
+
+	if !exists {
+		g.data[x] = make(map[int]int)
+	}
+
+	g.data[x][y]++
+
+	return g.data[x][y]
+}
+
+// count number of points on grid with count greater than 1
+func (g *Grid) Intersections() int {
+	var intersections int
+
+	if g.data == nil {
+		return intersections
+	}
+
+	for x := range g.data {
+		for y := range g.data[x] {
+			count := g.data[x][y]
+
+			if count > 1 {
+				intersections++
+			}
 		}
 	}
+
+	return intersections
+}
+
+func Part1(input []Line, topLeft, bottomRight Point) int {
+	grid := CreateGrid()
+
+	for _, line := range input {
+		if line.Vertical() {
+			fmt.Println("Veritcal  ", line)
+
+			for y := line.start.y; y <= line.end.y; y++ {
+				grid.Increment(line.start.x, y)
+			}
+		} else if line.Horizontal() {
+			fmt.Println("Horizontal", line)
+
+			for x := line.start.x; x <= line.end.x; x++ {
+				grid.Increment(x, line.start.y)
+			}
+		} else {
+			fmt.Println("Skipped   ", line)
+		}
+	}
+
+	overlap := grid.Intersections()
 
 	return overlap
 }
