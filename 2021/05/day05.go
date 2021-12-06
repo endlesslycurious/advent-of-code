@@ -170,19 +170,27 @@ func Part1(input []Line, topLeft, bottomRight Point) int {
 
 	for _, line := range input {
 		if line.Vertical() {
-			fmt.Println("Veritcal  ", line)
-
-			for y := line.start.y; y <= line.end.y; y++ {
-				grid.Increment(line.start.x, y)
+			// line direction may not be positive along y!
+			if line.start.y <= line.end.y {
+				for y := line.start.y; y <= line.end.y; y++ {
+					grid.Increment(line.start.x, y)
+				}
+			} else {
+				for y := line.end.y; y <= line.start.y; y++ {
+					grid.Increment(line.start.x, y)
+				}
 			}
 		} else if line.Horizontal() {
-			fmt.Println("Horizontal", line)
-
-			for x := line.start.x; x <= line.end.x; x++ {
-				grid.Increment(x, line.start.y)
+			// line direction may not be positive along x!
+			if line.start.x <= line.end.x {
+				for x := line.start.x; x <= line.end.x; x++ {
+					grid.Increment(x, line.start.y)
+				}
+			} else {
+				for x := line.end.x; x <= line.start.x; x++ {
+					grid.Increment(x, line.start.y)
+				}
 			}
-		} else {
-			fmt.Println("Skipped   ", line)
 		}
 	}
 
