@@ -18,22 +18,6 @@ var input = []Line{
 	{Point{x: 5, y: 5}, Point{x: 8, y: 2}},
 }
 
-func TestUpdateExtents(T *testing.T) {
-	var topLeft, bottomRight Point
-
-	for _, line := range input {
-		UpdateExtents(line.start, &bottomRight, &topLeft)
-		UpdateExtents(line.end, &bottomRight, &topLeft)
-	}
-
-	if topLeft.x != 0 || topLeft.y != 0 {
-		log.Fatalln("FAIL! Expected", Point{0, 0}, "got", topLeft)
-	}
-	if bottomRight.x != 9 || bottomRight.y != 9 {
-		log.Fatalln("FAIL! Expected", Point{9, 9}, "got", bottomRight)
-	}
-}
-
 func TestGridIncrement(T *testing.T) {
 	grid := CreateGrid()
 
@@ -67,10 +51,8 @@ func TestGridIntersections(T *testing.T) {
 
 func TestPart1(T *testing.T) {
 	expected := 5
-	topLeft := Point{0, 0}
-	bottomRight := Point{9, 9}
 
-	actual := Part1(input, topLeft, bottomRight)
+	actual := Part1(input)
 
 	if expected != actual {
 		log.Fatalln("FAIL! Expected", expected, "got", actual)
