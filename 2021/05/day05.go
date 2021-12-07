@@ -190,6 +190,28 @@ func (g *Grid) AddHorizontalLine(begin, end, y int) {
 	}
 }
 
+func (g *Grid) AddDiagonalLine(begin, end Point) {
+	// work out direction of the diagonal line in both axis
+	xDelta := 1
+	if begin.x > end.x {
+		xDelta = -1
+	}
+
+	yDelta := 1
+	if begin.y > end.y {
+		yDelta = -1
+	}
+
+	// walk the line, incrementing the counts but break out seperatly
+	for x, y := begin.x, begin.y; ; x, y = x+xDelta, y+yDelta {
+		g.Increment(x, y)
+
+		if x == end.x && y == end.y {
+			break
+		}
+	}
+}
+
 func Part1(input []Line, topLeft, bottomRight Point) int {
 	grid := CreateGrid()
 
@@ -207,7 +229,19 @@ func Part1(input []Line, topLeft, bottomRight Point) int {
 }
 
 func Part2(input []Line) int {
-	var intersections int
+	grid := CreateGrid()
 
-	return intersections
+	for _, line := range input {
+		if line.Vertical() {
+			grid.AddVerticalLine(line.start.y, line.end.y, line.start.x)
+		} else if line.Horizontal() {
+			grid.AddHorizontalLine(line.start.x, line.end.x, line.start.y)
+		} else {
+			grid.AddDiagonalLine(line.start, line.end)
+		}
+	}
+
+	overlap := grid.Intersections()
+
+	return overlap
 }
