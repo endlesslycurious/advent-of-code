@@ -5,9 +5,8 @@ import (
 	"testing"
 )
 
-var input = []int{3, 4, 3, 1, 2}
-
 func TestPart1(T *testing.T) {
+	input := []int{3, 4, 3, 1, 2}
 	expected := 26
 	days := 18
 
@@ -19,6 +18,7 @@ func TestPart1(T *testing.T) {
 }
 
 func TestPart2(T *testing.T) {
+	input := []int{3, 4, 3, 1, 2}
 	expected := 26984457539
 	days := 256
 

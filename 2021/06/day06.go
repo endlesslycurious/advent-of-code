@@ -48,6 +48,8 @@ func main() {
 	answer := Part1(input, 80)
 	fmt.Println("Answer Part 1:", answer)
 
+	input = ReadInput("./2021/06/input.txt")
+
 	answer = Part2(input, 256)
 	fmt.Println("Answer Part 2:", answer)
 }
@@ -58,6 +60,7 @@ const (
 	SpawnTimer   int = 0 // spawning threshold
 )
 
+// Naive (slow) way use array of individual fish and decrement/spawn individual fish
 func Part1(fishes []int, days int) int {
 
 	for day := 0; day < days; day++ {
@@ -78,6 +81,42 @@ func Part1(fishes []int, days int) int {
 	return len(fishes)
 }
 
-func Part2(fishes []int, days int) int {
-	return 0
+// Faster solution use array to count number of fish at each stage of the cycle
+func Part2(input []int, days int) int {
+	fishes := make([]int, 9)
+
+	// count nubmer of fish at each stage
+	for _, fish := range input {
+		fishes[fish]++
+	}
+
+	for day := 0; day < days; day++ {
+		var newFish int
+
+		// work on total fish per stage rather than individuals
+		for i := 0; i <= InitialTimer; i++ {
+			fish := fishes[i]
+			fishes[i] = 0
+
+			if i == SpawnTimer {
+				// new fish are equal to number of spawned fish
+				newFish = fish
+			} else {
+				fishes[i-1] = fish
+			}
+
+		}
+
+		// reset spawned fish and add new fish
+		fishes[ResetTimer] += newFish
+		fishes[InitialTimer] = newFish
+	}
+
+	// total up number of fish
+	var count int
+	for _, val := range fishes {
+		count += val
+	}
+
+	return count
 }
