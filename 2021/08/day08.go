@@ -63,10 +63,10 @@ func DigitFromLine(line string) Digit {
 }
 
 const (
-	OneSegments   = 2
-	FourSegments  = 4
-	SevenSegments = 3
-	EightSegments = 7
+	OneSegments   = 2 // Character 1 requires 2 segments
+	FourSegments  = 4 // Character 4 requires 4 segments
+	SevenSegments = 3 // Character 7 requires 3 segments
+	EightSegments = 7 // Character 8 requires 7 segments
 )
 
 func Part1(digits []Digit) int {
@@ -79,7 +79,10 @@ func Part1(digits []Digit) int {
 		}
 	}
 
-	count := freq[OneSegments] + freq[FourSegments] + freq[SevenSegments] + freq[EightSegments]
+	count := freq[OneSegments]
+	count += freq[FourSegments]
+	count += freq[SevenSegments]
+	count += freq[EightSegments]
 
 	return count
 }
