@@ -24,3 +24,13 @@ func TestPart1(t *testing.T) {
 		t.Error("Expected", expected, "got", actual)
 	}
 }
+
+func TestPart2(t *testing.T) {
+	expected := 5353
+
+	actual := Part2(input)
+
+	if actual != expected {
+		t.Error("Expected", expected, "got", actual)
+	}
+}

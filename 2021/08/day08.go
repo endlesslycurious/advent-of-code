@@ -42,6 +42,9 @@ func main() {
 
 	answer := Part1(input)
 	fmt.Println("Part 1 Answer:", answer)
+
+	answer = Part2(input)
+	fmt.Println("Part 2 Answer:", answer)
 }
 
 type Digit struct {
@@ -85,4 +88,8 @@ func Part1(digits []Digit) int {
 	count += freq[EightSegments]
 
 	return count
+}
+
+func Part2(digits []Digit) int {
+	return 0
 }
