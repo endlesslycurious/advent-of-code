@@ -80,12 +80,24 @@ func MapLocations(crabs []int) []int {
 	return locations
 }
 
-func Part1(crabs []int) int {
+type CostFunc func(int) int
+
+// cost is simply the distance
+func SimpleCost(dist int) int {
+	return dist
+}
+
+// cost is sum of 0 to dist
+func SumCost(dist int) int {
+	return (dist * (dist + 1)) / 2
+}
+
+func FindOptimalCost(crabs []int, costFunc CostFunc) int {
 	// first work out how many crabs at each location
 	locations := MapLocations(crabs)
+	var optimal int
 
 	// work out costs to move all crabs to each location
-	costs := make([]int, len(locations))
 	for x := range locations {
 		var cost int
 
@@ -94,16 +106,11 @@ func Part1(crabs []int) int {
 			if dist < 0 {
 				dist = -dist
 			}
-			cost += dist * count
+			cost += costFunc(dist) * count
 		}
 
-		costs[x] = cost
-	}
-
-	// find the lowest cost to move all crabs to one location
-	var optimal int
-	for i, cost := range costs {
-		if i == 0 {
+		// track the optimal cost
+		if x == 0 {
 			optimal = cost
 		} else if cost < optimal {
 			optimal = cost
@@ -113,38 +120,10 @@ func Part1(crabs []int) int {
 	return optimal
 }
 
+func Part1(crabs []int) int {
+	return FindOptimalCost(crabs, SimpleCost)
+}
+
 func Part2(crabs []int) int {
-	locations := MapLocations(crabs)
-
-	// work out costs to move all crabs to each location
-	costs := make([]int, len(locations))
-	for x := range locations {
-		var cost int
-
-		for pos, count := range locations {
-			dist := pos - x
-			if dist < 0 {
-				dist = -dist
-			}
-
-			// cost is now sum of 0 to dist
-			sum := (dist * (dist + 1)) / 2
-
-			cost += sum * count
-		}
-
-		costs[x] = cost
-	}
-
-	// find the lowest cost to move all crabs to one location
-	var optimal int
-	for i, cost := range costs {
-		if i == 0 {
-			optimal = cost
-		} else if cost < optimal {
-			optimal = cost
-		}
-	}
-
-	return optimal
+	return FindOptimalCost(crabs, SumCost)
 }
