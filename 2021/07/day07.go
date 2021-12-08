@@ -49,6 +49,31 @@ func main() {
 	fmt.Println("Part 1 Answer: ", answer)
 }
 
+func FindMax(in []int) int {
+	var min, max int
+	for _, pos := range in {
+		if pos > max {
+			max = pos
+		} else if pos < min {
+			min = pos
+		}
+	}
+
+	if min != 0 {
+		panic("expect min to be zero")
+	}
+
+	return max
+}
+
 func Part1(crabs []int) int {
-	return 0
+	// first work out how many crabs at each location
+	max := FindMax(crabs)
+	locations := make([]int, max+1)
+
+	for _, pos := range crabs {
+		locations[pos]++
+	}
+
+	return len(locations)
 }
