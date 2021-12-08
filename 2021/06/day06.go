@@ -49,6 +49,28 @@ func main() {
 	fmt.Println("Answer Part 1:", answer)
 }
 
-func Part1(input []int, days int) int {
-	return 0
+const (
+	InitialTimer int = 8 // newly created fish
+	ResetTimer   int = 6 // fish that has just spawned
+	SpawnTimer   int = 0 // spawning threshold
+)
+
+func Part1(fishes []int, days int) int {
+
+	for day := 0; day < days; day++ {
+		newFish := make([]int, 0)
+
+		for idx := range fishes {
+			if fishes[idx] == SpawnTimer {
+				fishes[idx] = ResetTimer
+				newFish = append(newFish, InitialTimer)
+			} else {
+				fishes[idx]--
+			}
+		}
+
+		fishes = append(fishes, newFish...)
+	}
+
+	return len(fishes)
 }
