@@ -69,14 +69,20 @@ func FindMax(in []int) int {
 	return max
 }
 
-func Part1(crabs []int) int {
-	// first work out how many crabs at each location
+func MapLocations(crabs []int) []int {
 	max := FindMax(crabs)
 	locations := make([]int, max+1)
 
 	for _, pos := range crabs {
 		locations[pos]++
 	}
+
+	return locations
+}
+
+func Part1(crabs []int) int {
+	// first work out how many crabs at each location
+	locations := MapLocations(crabs)
 
 	// work out costs to move all crabs to each location
 	costs := make([]int, len(locations))
@@ -108,5 +114,37 @@ func Part1(crabs []int) int {
 }
 
 func Part2(crabs []int) int {
-	return 0
+	locations := MapLocations(crabs)
+
+	// work out costs to move all crabs to each location
+	costs := make([]int, len(locations))
+	for x := range locations {
+		var cost int
+
+		for pos, count := range locations {
+			dist := pos - x
+			if dist < 0 {
+				dist = -dist
+			}
+
+			// cost is now sum of 0 to dist
+			sum := (dist * (dist + 1)) / 2
+
+			cost += sum * count
+		}
+
+		costs[x] = cost
+	}
+
+	// find the lowest cost to move all crabs to one location
+	var optimal int
+	for i, cost := range costs {
+		if i == 0 {
+			optimal = cost
+		} else if cost < optimal {
+			optimal = cost
+		}
+	}
+
+	return optimal
 }
