@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"testing"
 )
 
@@ -12,7 +11,7 @@ func TestPart1(t *testing.T) {
 	result := 7
 	actual := Part1(input)
 	if actual != result {
-		log.Fatalln("FAIL! Expected ", result, " got ", actual)
+		t.Error("Expected ", result, " got ", actual)
 	}
 }
 
@@ -21,7 +20,7 @@ func TestPart2(t *testing.T) {
 	result := 5
 	actual := Part2(input)
 	if actual != result {
-		log.Fatalln("FAIL! Expected ", result, " got ", actual)
+		t.Error("Expected ", result, " got ", actual)
 	}
 }
 

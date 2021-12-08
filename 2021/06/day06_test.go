@@ -1,11 +1,10 @@
 package main
 
 import (
-	"log"
 	"testing"
 )
 
-func TestPart1(T *testing.T) {
+func TestPart1(t *testing.T) {
 	input := []int{3, 4, 3, 1, 2}
 	expected := 26
 	days := 18
@@ -13,11 +12,11 @@ func TestPart1(T *testing.T) {
 	actual := Part1(input, days)
 
 	if actual != expected {
-		log.Fatalln("FAIL! Expected", expected, "got", actual)
+		t.Error("Expected", expected, "got", actual)
 	}
 }
 
-func TestPart2(T *testing.T) {
+func TestPart2(t *testing.T) {
 	input := []int{3, 4, 3, 1, 2}
 	expected := 26984457539
 	days := 256
@@ -25,6 +24,6 @@ func TestPart2(T *testing.T) {
 	actual := Part2(input, days)
 
 	if actual != expected {
-		log.Fatalln("FAIL! Expected", expected, "got", actual)
+		t.Error("Expected", expected, "got", actual)
 	}
 }

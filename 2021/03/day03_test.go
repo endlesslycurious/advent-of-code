@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"testing"
 )
 
@@ -24,7 +23,7 @@ func TestPart1(t *testing.T) {
 	result := 198
 	actual := Part1(input)
 	if actual != result {
-		log.Fatalln("FAIL! expected ", result, " got ", actual)
+		t.Error("expected ", result, " got ", actual)
 	}
 }
 
@@ -32,7 +31,7 @@ func TestPart2(t *testing.T) {
 	result := 230
 	actual := Part2(input)
 	if actual != result {
-		log.Fatalln("FAIL! expected ", result, " got ", actual)
+		t.Error("expected ", result, " got ", actual)
 	}
 }
 
@@ -49,7 +48,7 @@ func TestFilterByBit(t *testing.T) {
 	actual := FilterByBit(input, '1', 0)
 
 	if len(actual) != len(expected) {
-		log.Fatalln("FAIL! expected length ", len(expected), " got ", len(actual))
+		t.Error("expected length ", len(expected), " got ", len(actual))
 	}
 }
 
@@ -61,7 +60,7 @@ func TestStrToBinary(t *testing.T) {
 		actual := StrToBinary(input)
 
 		if actual != expected[i] {
-			log.Fatalln("FAIL! Expected ", expected[i], " got ", actual)
+			t.Error("Expected ", expected[i], " got ", actual)
 		}
 	}
 }
@@ -73,7 +72,7 @@ func TestCountOnes(t *testing.T) {
 		actual := CountOnes(input, i)
 
 		if actual != expected {
-			log.Fatalln("FAIL! Expected ", expected, " got ", actual)
+			t.Error("Expected ", expected, " got ", actual)
 		}
 	}
 }

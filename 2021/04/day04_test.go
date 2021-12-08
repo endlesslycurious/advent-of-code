@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"testing"
 )
 
@@ -13,25 +12,25 @@ var boards = []Board{
 	{Numbers: []int{14, 21, 17, 24, 4, 10, 16, 15, 9, 19, 18, 8, 23, 26, 20, 22, 11, 13, 6, 5, 2, 0, 12, 3, 7}},
 }
 
-func TestPart1(T *testing.T) {
+func TestPart1(t *testing.T) {
 	expected := 4512
 	actual := Part1(numbers, boards)
 
 	if expected != actual {
-		log.Fatalln("FAIL! Expected ", expected, " got ", actual)
+		t.Error("Expected ", expected, " got ", actual)
 	}
 }
 
-func TestPart2(T *testing.T) {
+func TestPart2(t *testing.T) {
 	expected := 1924
 	actual := Part2(numbers, boards)
 
 	if expected != actual {
-		log.Fatalln("FAIL! Expected ", expected, " got ", actual)
+		t.Error("Expected ", expected, " got ", actual)
 	}
 }
 
-func TestCheckColumns(T *testing.T) {
+func TestCheckColumns(t *testing.T) {
 	// test third column of first board
 	called := []int{17, 23, 14, 3, 20}
 	board := boards[0]
@@ -41,11 +40,11 @@ func TestCheckColumns(T *testing.T) {
 	}
 
 	if !board.CheckColumns() {
-		log.Fatalln("FAIL! No bingo found!")
+		t.Error("No bingo found!")
 	}
 }
 
-func TestCheckRows(T *testing.T) {
+func TestCheckRows(t *testing.T) {
 	// test third row of first board
 	called := []int{21, 9, 14, 16, 7}
 	board := boards[0]
@@ -55,6 +54,6 @@ func TestCheckRows(T *testing.T) {
 	}
 
 	if !board.CheckRows() {
-		log.Fatalln("FAIL! No bingo found!")
+		t.Error("No bingo found!")
 	}
 }

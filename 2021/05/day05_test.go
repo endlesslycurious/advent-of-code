@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"testing"
 )
 
@@ -18,7 +17,7 @@ var input = []Line{
 	{Point{x: 5, y: 5}, Point{x: 8, y: 2}},
 }
 
-func TestGridIncrement(T *testing.T) {
+func TestGridIncrement(t *testing.T) {
 	grid := CreateGrid()
 
 	expected := []int{1, 2, 3, 1, 4}
@@ -28,12 +27,12 @@ func TestGridIncrement(T *testing.T) {
 		actual := grid.Increment(inputs[i].x, inputs[i].y)
 
 		if expected[i] != actual {
-			log.Fatalln("FAIL! Expected", expected[i], "got", actual)
+			t.Error("Expected", expected[i], "got", actual)
 		}
 	}
 }
 
-func TestGridIntersections(T *testing.T) {
+func TestGridIntersections(t *testing.T) {
 	grid := CreateGrid()
 	inputs := []Point{{0, 0}, {0, 0}, {0, 0}, {1, 1}, {0, 0}}
 	expected := 1
@@ -45,26 +44,26 @@ func TestGridIntersections(T *testing.T) {
 	actual := grid.Intersections()
 
 	if actual != expected {
-		log.Fatalln("FAIL! Expected", expected, "got", actual)
+		t.Error("Expected", expected, "got", actual)
 	}
 }
 
-func TestPart1(T *testing.T) {
+func TestPart1(t *testing.T) {
 	expected := 5
 
 	actual := Part1(input)
 
 	if expected != actual {
-		log.Fatalln("FAIL! Expected", expected, "got", actual)
+		t.Error("Expected", expected, "got", actual)
 	}
 }
 
-func TestPart2(T *testing.T) {
+func TestPart2(t *testing.T) {
 	expected := 12
 
 	actual := Part2(input)
 
 	if expected != actual {
-		log.Fatalln("FAIL! Expected", expected, "got", actual)
+		t.Error("Expected", expected, "got", actual)
 	}
 }
