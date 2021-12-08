@@ -75,5 +75,31 @@ func Part1(crabs []int) int {
 		locations[pos]++
 	}
 
-	return len(locations)
+	// work out costs to move all crabs to each location
+	costs := make([]int, len(locations))
+	for x := range locations {
+		var cost int
+
+		for pos, count := range locations {
+			dist := pos - x
+			if dist < 0 {
+				dist = -dist
+			}
+			cost += dist * count
+		}
+
+		costs[x] = cost
+	}
+
+	// find the lowest cost to move all crabs to one location
+	var optimal int
+	for i, cost := range costs {
+		if i == 0 {
+			optimal = cost
+		} else if cost < optimal {
+			optimal = cost
+		}
+	}
+
+	return optimal
 }
