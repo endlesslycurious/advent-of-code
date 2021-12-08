@@ -56,12 +56,30 @@ func DigitFromLine(line string) Digit {
 		panic("Should only be two sections per line")
 	}
 
-	input := strings.Split(sections[0], " ")
-	output := strings.Split(sections[1], " ")
+	input := strings.Split(strings.TrimSpace(sections[0]), " ")
+	output := strings.Split(strings.TrimSpace(sections[1]), " ")
 
 	return Digit{input, output}
 }
 
+const (
+	OneSegments   = 2
+	FourSegments  = 4
+	SevenSegments = 3
+	EightSegments = 7
+)
+
 func Part1(digits []Digit) int {
-	return 0
+	freq := make(map[int]int, 9)
+
+	for _, digit := range digits {
+		for _, output := range digit.output {
+			segments := len(output)
+			freq[segments]++
+		}
+	}
+
+	count := freq[OneSegments] + freq[FourSegments] + freq[SevenSegments] + freq[EightSegments]
+
+	return count
 }
