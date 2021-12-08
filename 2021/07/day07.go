@@ -47,6 +47,9 @@ func main() {
 
 	answer := Part1(input)
 	fmt.Println("Part 1 Answer: ", answer)
+
+	answer = Part2(input)
+	fmt.Println("Part 2 Answer: ", answer)
 }
 
 func FindMax(in []int) int {
@@ -102,4 +105,8 @@ func Part1(crabs []int) int {
 	}
 
 	return optimal
+}
+
+func Part2(crabs []int) int {
+	return 0
 }
