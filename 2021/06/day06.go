@@ -47,6 +47,9 @@ func main() {
 
 	answer := Part1(input, 80)
 	fmt.Println("Answer Part 1:", answer)
+
+	answer = Part2(input, 256)
+	fmt.Println("Answer Part 2:", answer)
 }
 
 const (
@@ -73,4 +76,8 @@ func Part1(fishes []int, days int) int {
 	}
 
 	return len(fishes)
+}
+
+func Part2(fishes []int, days int) int {
+	return 0
 }

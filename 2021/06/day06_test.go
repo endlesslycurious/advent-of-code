@@ -7,7 +7,7 @@ import (
 
 var input = []int{3, 4, 3, 1, 2}
 
-func TestPart1Short(T *testing.T) {
+func TestPart1(T *testing.T) {
 	expected := 26
 	days := 18
 
@@ -18,11 +18,11 @@ func TestPart1Short(T *testing.T) {
 	}
 }
 
-func TestPart1Long(T *testing.T) {
-	expected := 5934
-	days := 80
+func TestPart2(T *testing.T) {
+	expected := 26984457539
+	days := 256
 
-	actual := Part1(input, days)
+	actual := Part2(input, days)
 
 	if actual != expected {
 		log.Fatalln("FAIL! Expected", expected, "got", actual)
