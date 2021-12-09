@@ -28,7 +28,7 @@ then
     touch "./$year/$day/day${day}.txt"
     touch "./$year/$day/day${day}.go"
     touch "./$year/$day/day${day}_test.go"
-    touch "./$year/$day/input.txt"
+    touch "./$year/$day/day${day}_input.txt"
 
     echo "Day ${day} folder & files created!"
 else
