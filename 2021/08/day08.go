@@ -178,6 +178,8 @@ func Decode(input []string) map[string]int {
 	}
 
 	// identify remaining by differences to identified signals
+	// - three signals with length five: 3, 5 & 2
+	// - three signals with length six: 6, 9 & 0
 	three := FindDiff(seven, 2, remaining[5])
 	lookup[three] = 3
 
