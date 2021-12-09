@@ -187,7 +187,7 @@ func Decode(input []string) map[string]int {
 	two := FindDiff(four, 3, remaining[5])
 	lookup[two] = 2
 
-	six := FindDiff(four, 3, remaining[6])
+	six := FindDiff(seven, 4, remaining[6])
 	lookup[six] = 6
 
 	nine := FindDiff(four, 2, remaining[6])
