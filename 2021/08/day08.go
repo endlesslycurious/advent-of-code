@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -52,6 +53,24 @@ type Digit struct {
 	output []string // output values
 }
 
+func SortString(in string) string {
+	raw := []rune(in)
+
+	sort.Slice(raw, func(i, j int) bool { return raw[i] < raw[j] })
+
+	return string(raw)
+}
+
+func ProcessStrings(line string) []string {
+	output := make([]string, 0)
+
+	for _, raw := range strings.Split(line, " ") {
+		output = append(output, SortString(raw))
+	}
+
+	return output
+}
+
 func DigitFromLine(line string) Digit {
 	sections := strings.Split(line, "|")
 
@@ -59,8 +78,8 @@ func DigitFromLine(line string) Digit {
 		panic("Should only be two sections per line")
 	}
 
-	input := strings.Split(strings.TrimSpace(sections[0]), " ")
-	output := strings.Split(strings.TrimSpace(sections[1]), " ")
+	input := ProcessStrings(strings.TrimSpace(sections[0]))
+	output := ProcessStrings(strings.TrimSpace(sections[1]))
 
 	return Digit{input, output}
 }
@@ -119,6 +138,11 @@ func FindDiff(pattern string, delta int, candidates []string) string {
 			break
 		}
 	}
+
+	if len(found) == 0 {
+		log.Fatalln("Signal with delta", delta, "from", pattern, "not found in", candidates)
+	}
+
 	return found
 }
 
