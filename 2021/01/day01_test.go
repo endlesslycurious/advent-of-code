@@ -24,7 +24,7 @@ func TestPart2(t *testing.T) {
 	}
 }
 
-var benchInput = ReadIntsFile("./input.txt")
+var benchInput = ReadIntsFile("./day01_input.txt")
 
 // Benchmark first problem solution
 func BenchmarkPart1(b *testing.B) {

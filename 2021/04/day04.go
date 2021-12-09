@@ -163,13 +163,13 @@ func ParseInt(in string) int {
 }
 
 func main() {
-	numbers, boards := ReadInputs("./2021/04/input.txt")
+	numbers, boards := ReadInputs("./2021/04/day04_input.txt")
 
 	answer := Part1(numbers, boards)
 	fmt.Println("Part1 Answer: ", answer)
 
 	// reload inputs as Part1 will have modified the boards
-	_, boards = ReadInputs("./2021/04/input.txt")
+	_, boards = ReadInputs("./2021/04/day04_input.txt")
 
 	answer = Part2(numbers, boards)
 	fmt.Println("Part2 Answer: ", answer)

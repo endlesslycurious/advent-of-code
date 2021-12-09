@@ -23,7 +23,7 @@ func TestPart1(t *testing.T) {
 	}
 }
 
-var benchInput = LoadInstructions("./input.txt")
+var benchInput = LoadInstructions("./day02_input.txt")
 
 // Benchmark part one solution
 func BenchmarkPart1(b *testing.B) {

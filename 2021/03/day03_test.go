@@ -77,7 +77,7 @@ func TestCountOnes(t *testing.T) {
 	}
 }
 
-var benchInput = ReadPowerBits("./input.txt")
+var benchInput = ReadPowerBits("./day03_input.txt")
 
 func BenchmarkPart1(b *testing.B) {
 	for n := 0; n < b.N; n++ {

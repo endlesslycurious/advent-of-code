@@ -41,7 +41,7 @@ func ReadIntsFile(filename string) []int {
 }
 
 func main() {
-	data := ReadIntsFile("./2021/01/input.txt")
+	data := ReadIntsFile("./2021/01/day01_input.txt")
 
 	answer := Part1(data)
 	fmt.Println("Part One: ", answer)

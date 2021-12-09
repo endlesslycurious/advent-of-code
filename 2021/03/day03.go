@@ -36,7 +36,7 @@ func ReadPowerBits(filename string) []string {
 }
 
 func main() {
-	input := ReadPowerBits("./2021/03/input.txt")
+	input := ReadPowerBits("./2021/03/day03_input.txt")
 
 	answer := Part1(input)
 	fmt.Println("Part 1 answer: ", answer)

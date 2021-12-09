@@ -39,7 +39,7 @@ func ReadInput(filename string) []Digit {
 }
 
 func main() {
-	input := ReadInput("./2021/08/input.txt")
+	input := ReadInput("./2021/08/day08_input.txt")
 
 	answer := Part1(input)
 	fmt.Println("Part 1 Answer:", answer)

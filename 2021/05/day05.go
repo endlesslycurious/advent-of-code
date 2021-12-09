@@ -77,7 +77,7 @@ func LoadLines(filename string) []Line {
 }
 
 func main() {
-	input := LoadLines("./2021/05/input.txt")
+	input := LoadLines("./2021/05/day05_input.txt")
 
 	answer := Part1(input)
 	fmt.Println("Part 1 Answer: ", answer)

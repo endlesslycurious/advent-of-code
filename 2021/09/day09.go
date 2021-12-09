@@ -47,7 +47,7 @@ func ReadInput(filename string) [][]int {
 }
 
 func main() {
-	input := ReadInput("./2021/09/input.txt")
+	input := ReadInput("./2021/09/day09_input.txt")
 
 	answer := Part1(input)
 	fmt.Println("Answer Part 1", answer)

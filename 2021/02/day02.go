@@ -73,7 +73,7 @@ func LoadInstructions(filename string) []Instruction {
 }
 
 func main() {
-	input := LoadInstructions("./2021/02/input.txt")
+	input := LoadInstructions("./2021/02/day02_input.txt")
 
 	answer := Part1(input)
 	fmt.Println("Part 1 answer: ", answer)
