@@ -78,6 +78,7 @@ func DigitFromLine(line string) Digit {
 		panic("Should only be two sections per line")
 	}
 
+	// sort strings in input and output during load to simplify lookup
 	input := ProcessStrings(strings.TrimSpace(sections[0]))
 	output := ProcessStrings(strings.TrimSpace(sections[1]))
 
@@ -109,6 +110,7 @@ func Part1(digits []Digit) int {
 	return count
 }
 
+// Count number of different characters between two strings
 func Diff(a, b string) int {
 	var diff int
 
@@ -125,8 +127,10 @@ func Diff(a, b string) int {
 	return diff
 }
 
+// Find string with delta differences from pattern in candidates array
 func FindDiff(pattern string, delta int, candidates []string) string {
 	var found string
+
 	for idx, signal := range candidates {
 		if signal == "" {
 			continue
@@ -146,13 +150,14 @@ func FindDiff(pattern string, delta int, candidates []string) string {
 	return found
 }
 
+// Decode inputs into a lookup table of signal to value
 func Decode(input []string) map[string]int {
 	lookup := make(map[string]int, len(input))
 	remaining := make(map[int][]string, len(input)-4)
 
 	var four, seven, eight string
 
-	// identify 1, 4, 7 & 8 by length first
+	// identify signals for 1, 4, 7 & 8 by length
 	for _, signal := range input {
 		length := len(signal)
 		switch length {
@@ -172,6 +177,7 @@ func Decode(input []string) map[string]int {
 		}
 	}
 
+	// identify remaining by differences to identified signals
 	three := FindDiff(seven, 2, remaining[5])
 	lookup[three] = 3
 
