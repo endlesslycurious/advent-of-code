@@ -34,14 +34,14 @@ go test ./2021/01/. --bench .
 ## Progress
 Hoping to get at least 25 of 50 possible stars!
 
-| Day | Part 1 | Part 2 |
-| :---: | :---: | :---: |
-| 01 | ⭐️ | ⭐️ |
-| 02 | ⭐️ | ⭐️ |
-| 03 | ⭐️ | ⭐️ |
-| 04 | ⭐️ | ⭐️ |
-| 05 | ⭐️ | ⭐️ |
-| 06 | ⭐️ | ⭐️ |
-| 07 | ⭐️ | ⭐️ |
-| 08 | ⭐️ | ⭐️ |
-| 09 | | |
+| Day | Part 1 | Part 2 | Notes |
+| :---: | :---: | :---: | :---- |
+| 01 | ⭐️ | ⭐️ | Signal monitoring|
+| 02 | ⭐️ | ⭐️ | Instruction running |
+| 03 | ⭐️ | ⭐️ | Bit twiddling |
+| 04 | ⭐️ | ⭐️ | Bingo simulation|
+| 05 | ⭐️ | ⭐️ | Line intersections on grid|
+| 06 | ⭐️ | ⭐️ | Population growth modelling |
+| 07 | ⭐️ | ⭐️ | Calculate optimal costs|
+| 08 | ⭐️ | ⭐️ | Decoding output from input |
+| 09 | | | Sliding window |
