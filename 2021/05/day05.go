@@ -51,8 +51,6 @@ func LoadLines(filename string) []Line {
 
 	defer file.Close()
 
-	var topLeft, bottomRight Point
-
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
@@ -65,13 +63,11 @@ func LoadLines(filename string) []Line {
 		data = append(data, Line{start, end})
 	}
 
-	fmt.Println(topLeft, bottomRight)
-
 	if err := scanner.Err(); err != nil {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded", len(data), "lines from", filename, "with extents", topLeft, "to", bottomRight)
+	fmt.Println("Loaded", len(data), "lines from", filename)
 
 	return data
 }
