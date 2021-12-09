@@ -90,6 +90,100 @@ func Part1(digits []Digit) int {
 	return count
 }
 
+func Diff(a, b string) int {
+	var diff int
+
+	if len(a) < len(b) {
+		a, b = b, a
+	}
+
+	for _, chr := range a {
+		if !strings.Contains(b, string(chr)) {
+			diff++
+		}
+	}
+
+	return diff
+}
+
+func FindDiff(pattern string, delta int, candidates []string) string {
+	var found string
+	for idx, signal := range candidates {
+		if signal == "" {
+			continue
+		}
+
+		if Diff(signal, pattern) == delta {
+			candidates[idx] = ""
+			found = signal
+			break
+		}
+	}
+	return found
+}
+
+func Decode(input []string) map[string]int {
+	lookup := make(map[string]int, len(input))
+	remaining := make(map[int][]string, len(input)-4)
+
+	var four, seven, eight string
+
+	// identify 1, 4, 7 & 8 by length first
+	for _, signal := range input {
+		length := len(signal)
+		switch length {
+		case OneSegments:
+			lookup[signal] = 1
+		case FourSegments:
+			lookup[signal] = 4
+			four = signal
+		case SevenSegments:
+			lookup[signal] = 7
+			seven = signal
+		case EightSegments:
+			lookup[signal] = 8
+			eight = signal
+		default:
+			remaining[length] = append(remaining[length], signal)
+		}
+	}
+
+	three := FindDiff(seven, 2, remaining[5])
+	lookup[three] = 3
+
+	five := FindDiff(four, 2, remaining[5])
+	lookup[five] = 5
+
+	two := FindDiff(four, 3, remaining[5])
+	lookup[two] = 2
+
+	six := FindDiff(four, 3, remaining[6])
+	lookup[six] = 6
+
+	nine := FindDiff(four, 2, remaining[6])
+	lookup[nine] = 9
+
+	zero := FindDiff(eight, 1, remaining[6])
+	lookup[zero] = 0
+
+	return lookup
+}
+
 func Part2(digits []Digit) int {
-	return 0
+	var sum int
+
+	for _, digit := range digits {
+		// decode input into a lookup table
+		lookup := Decode(digit.input)
+
+		// process output using lookup
+		output := lookup[digit.output[0]] * 1000
+		output += lookup[digit.output[1]] * 100
+		output += lookup[digit.output[2]] * 10
+		output += lookup[digit.output[3]] * 1
+
+		sum += output
+	}
+
+	return sum
 }

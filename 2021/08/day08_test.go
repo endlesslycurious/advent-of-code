@@ -25,6 +25,42 @@ func TestPart1(t *testing.T) {
 	}
 }
 
+func TestDecode(t *testing.T) {
+	input := DigitFromLine("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf")
+	expected := map[string]int{
+		"acedgfb": 8,
+		"cdfbe":   5,
+		"gcdfa":   2,
+		"fbcad":   3,
+		"dab":     7,
+		"cefabd":  9,
+		"cdfgeb":  6,
+		"eafb":    4,
+		"cagedb":  0,
+		"ab":      1,
+	}
+
+	actual := Decode(input.input)
+
+	if len(expected) != len(actual) {
+		t.Error("Expected length", len(expected), "got", len(actual))
+	}
+
+	for key, val := range expected {
+		ans, exists := actual[key]
+
+		if !exists {
+			t.Error("key", key, "not found")
+			break
+		}
+
+		if ans != val {
+			t.Error("Expected", val, "got", ans, "for key", key)
+			break
+		}
+	}
+}
+
 func TestPart2(t *testing.T) {
 	expected := 61229
 
