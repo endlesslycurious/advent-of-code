@@ -7,10 +7,10 @@ Code is organised by year then day:
 ```
 .\[year]
   .\day[dd]
-    .\day[dd].txt
-    .\input.txt
-    .\day[dd].go
+    .\day[dd]_input.txt
     .\day[dd]_test.go
+    .\day[dd].go
+    .\day[dd].txt
 ```
 
 ### Creating days
