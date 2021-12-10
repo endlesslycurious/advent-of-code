@@ -37,18 +37,18 @@ func ReadInput(filename string) []int {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded ", len(data), " fish from ", filename)
-
 	return data
 }
 
 func main() {
-	input := ReadInput("./2021/06/day06_input.txt")
+	filename := "./2021/06/day06_input.txt"
+	input := ReadInput(filename)
+	fmt.Println("Loaded ", len(input), " fish from ", filename)
 
 	answer := Part1(input, 80)
 	fmt.Println("Answer Part 1:", answer)
 
-	input = ReadInput("./2021/06/day06_input.txt")
+	input = ReadInput(filename)
 
 	answer = Part2(input, 256)
 	fmt.Println("Answer Part 2:", answer)

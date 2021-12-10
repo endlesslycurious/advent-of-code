@@ -67,13 +67,13 @@ func LoadInstructions(filename string) []Instruction {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded ", len(data), " instructions from ", filename)
-
 	return data
 }
 
 func main() {
-	input := LoadInstructions("./2021/02/day02_input.txt")
+	filename := "./2021/02/day02_input.txt"
+	input := LoadInstructions(filename)
+	fmt.Println("Loaded ", len(input), " instructions from ", filename)
 
 	answer := Part1(input)
 	fmt.Println("Part 1 answer: ", answer)

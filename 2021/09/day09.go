@@ -41,13 +41,13 @@ func ReadInput(filename string) [][]int {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded", len(data), "lines from", filename)
-
 	return data
 }
 
 func main() {
-	input := ReadInput("./2021/09/day09_input.txt")
+	filename := "./2021/09/day09_input.txt"
+	input := ReadInput(filename)
+	fmt.Println("Loaded", len(input), "lines from", filename)
 
 	answer := Part1(input)
 	fmt.Println("Answer Part 1", answer)

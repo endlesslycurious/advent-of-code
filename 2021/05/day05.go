@@ -67,13 +67,13 @@ func LoadLines(filename string) []Line {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded", len(data), "lines from", filename)
-
 	return data
 }
 
 func main() {
-	input := LoadLines("./2021/05/day05_input.txt")
+	filename := "./2021/05/day05_input.txt"
+	input := LoadLines(filename)
+	fmt.Println("Loaded", len(input), "lines from", filename)
 
 	answer := Part1(input)
 	fmt.Println("Part 1 Answer: ", answer)

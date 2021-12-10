@@ -35,13 +35,13 @@ func ReadIntsFile(filename string) []int {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded ", len(data), " instructions from ", filename)
-
 	return data
 }
 
 func main() {
-	data := ReadIntsFile("./2021/01/day01_input.txt")
+	filename := "./2021/01/day01_input.txt"
+	data := ReadIntsFile(filename)
+	fmt.Println("Loaded ", len(data), " instructions from ", filename)
 
 	answer := Part1(data)
 	fmt.Println("Part One: ", answer)

@@ -30,13 +30,13 @@ func ReadPowerBits(filename string) []string {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded ", len(data), " readings from ", filename)
-
 	return data
 }
 
 func main() {
-	input := ReadPowerBits("./2021/03/day03_input.txt")
+	filename := "./2021/03/day03_input.txt"
+	input := ReadPowerBits(filename)
+	fmt.Println("Loaded ", len(input), " readings from ", filename)
 
 	answer := Part1(input)
 	fmt.Println("Part 1 answer: ", answer)

@@ -67,8 +67,6 @@ func ReadInputs(filename string) ([]int, []Board) {
 		log.Fatalln(err)
 	}
 
-	fmt.Println("Loaded ", len(numbers), " numbers and ", len(boards), " boards from ", filename)
-
 	return numbers, boards
 }
 
@@ -163,13 +161,15 @@ func ParseInt(in string) int {
 }
 
 func main() {
-	numbers, boards := ReadInputs("./2021/04/day04_input.txt")
+	filename := "./2021/04/day04_input.txt"
+	numbers, boards := ReadInputs(filename)
+	fmt.Println("Loaded ", len(numbers), " numbers and ", len(boards), " boards from ", filename)
 
 	answer := Part1(numbers, boards)
 	fmt.Println("Part1 Answer: ", answer)
 
 	// reload inputs as Part1 will have modified the boards
-	_, boards = ReadInputs("./2021/04/day04_input.txt")
+	_, boards = ReadInputs(filename)
 
 	answer = Part2(numbers, boards)
 	fmt.Println("Part2 Answer: ", answer)
