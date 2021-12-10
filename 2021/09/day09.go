@@ -51,6 +51,9 @@ func main() {
 
 	answer := Part1(input)
 	fmt.Println("Answer Part 1:", answer)
+
+	answer = Part2(input)
+	fmt.Println("Answer Part 2:", answer)
 }
 
 type Grid struct {
@@ -131,4 +134,8 @@ func Part1(input [][]int) int {
 	}
 
 	return risk
+}
+
+func Part2(input [][]int) int {
+	return 0
 }
