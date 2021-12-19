@@ -46,3 +46,4 @@ Hoping to get at least 25 of 50 possible stars!
 | 08 | ⭐️ | ⭐️ | Decoding output from input |
 | 09 | ⭐️ | ⭐️ | 2D neighbour comparison |
 | 10 | ⭐️ | ⭐️ | Braces checking |
+| 11 | | | Grid analysis? |
