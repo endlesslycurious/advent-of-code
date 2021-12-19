@@ -44,4 +44,4 @@ Hoping to get at least 25 of 50 possible stars!
 | 06 | ⭐️ | ⭐️ | Population growth modelling |
 | 07 | ⭐️ | ⭐️ | Calculate optimal costs|
 | 08 | ⭐️ | ⭐️ | Decoding output from input |
-| 09 | ⭐️ | | 2D neighbour comparison |
+| 09 | ⭐️ | ⭐️ | 2D neighbour comparison |
