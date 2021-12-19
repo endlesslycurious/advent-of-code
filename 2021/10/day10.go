@@ -35,6 +35,9 @@ func main() {
 
 	answer := Part1(input)
 	fmt.Println("Part 1 Answer:", answer)
+
+	answer = Part2(input)
+	fmt.Println("Part 2 Answer:", answer)
 }
 
 // scores of incorect closing brackets
@@ -90,4 +93,8 @@ func Part1(input []string) int {
 	}
 
 	return score
+}
+
+func Part2(input []string) int {
+	return 0
 }
