@@ -1,13 +1,42 @@
 package main
 
-import "fmt"
-
-const (
-	Steps int = 100
+import (
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+	"strconv"
+	"strings"
 )
 
 func ReadInput(filename string) [][]int {
-	return [][]int{}
+	data := make([][]int, 0)
+
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		vals := make([]int, 0, len(line))
+
+		for _, chr := range strings.Split(line, "") {
+			val, err := strconv.Atoi(chr)
+			if err != nil {
+				log.Fatalln(err)
+			}
+
+			vals = append(vals, val)
+		}
+
+		data = append(data, vals)
+	}
+
+	return data
 }
 
 func main() {
