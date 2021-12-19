@@ -37,7 +37,57 @@ func main() {
 	fmt.Println("Part 1 Answer:", answer)
 }
 
+// scores of incorect closing brackets
+var scores = map[rune]int{
+	')': 3,
+	']': 57,
+	'}': 1197,
+	'>': 25137,
+}
+
+// Map closing to opening brackets
+var matching = map[rune]rune{
+	')': '(', // 41 : 40
+	']': '[', // 93 : 91
+	'}': '{', // 125 : 121
+	'>': '<', // 62 : 60
+}
+
+// Generate map of errors by bracket to occurence count
+func FindErrors(input []string) map[rune]int {
+	errors := make(map[rune]int)
+
+	for _, line := range input {
+		open := make([]rune, 0, len(line))
+
+		for _, chr := range line {
+			if chr == ')' || chr == ']' || chr == '}' || chr == '>' {
+				prev := open[len(open)-1]
+
+				if prev != matching[chr] {
+					errors[chr]++
+					break
+				}
+
+				open = open[:len(open)-1]
+			} else {
+				open = append(open, chr)
+			}
+
+		}
+	}
+
+	return errors
+}
+
 func Part1(input []string) int {
 	var score int
+	errors := FindErrors(input)
+
+	for bracket, count := range errors {
+		subscore := count * scores[bracket]
+		score += subscore
+	}
+
 	return score
 }
