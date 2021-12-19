@@ -56,27 +56,37 @@ var matching = map[rune]rune{
 	'>': '<', // 62 : 60
 }
 
+// check line returns true and problem bracket if error otherwise false, 0
+func CheckLine(line string) (bool, rune) {
+	open := make([]rune, 0, len(line))
+
+	for _, chr := range line {
+		if chr == ')' || chr == ']' || chr == '}' || chr == '>' {
+			prev := open[len(open)-1]
+
+			if prev != matching[chr] {
+				return true, chr
+			}
+
+			open = open[:len(open)-1]
+		} else {
+			open = append(open, chr)
+		}
+
+	}
+
+	return false, 0
+}
+
 // Generate map of errors by bracket to occurence count
 func FindErrors(input []string) map[rune]int {
 	errors := make(map[rune]int)
 
 	for _, line := range input {
-		open := make([]rune, 0, len(line))
+		error, chr := CheckLine(line)
 
-		for _, chr := range line {
-			if chr == ')' || chr == ']' || chr == '}' || chr == '>' {
-				prev := open[len(open)-1]
-
-				if prev != matching[chr] {
-					errors[chr]++
-					break
-				}
-
-				open = open[:len(open)-1]
-			} else {
-				open = append(open, chr)
-			}
-
+		if error {
+			errors[chr]++
 		}
 	}
 
