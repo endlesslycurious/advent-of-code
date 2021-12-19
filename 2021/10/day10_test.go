@@ -47,6 +47,15 @@ func TestPart1(t *testing.T) {
 	}
 }
 
+func TestFiltered(t *testing.T) {
+	expected := 5
+	actual := len(FilterLines(input))
+
+	if actual != expected {
+		t.Error("Expected", expected, "got", actual)
+	}
+}
+
 func TestPart2(t *testing.T) {
 	expected := 288957
 	actual := Part2(input)

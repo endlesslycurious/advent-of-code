@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sort"
 	"strings"
 )
 
@@ -49,14 +50,22 @@ var scores = map[rune]int{
 }
 
 // Map closing to opening brackets
-var matching = map[rune]rune{
+var closeToOpen = map[rune]rune{
 	')': '(', // 41 : 40
 	']': '[', // 93 : 91
 	'}': '{', // 125 : 121
 	'>': '<', // 62 : 60
 }
 
-// check line returns true and problem bracket if error otherwise false, 0
+// Map open to closing brackets
+var openToClose = map[rune]rune{
+	'(': ')', // 40 : 41
+	'[': ']', // 91 : 93
+	'{': '}', // 121 : 125
+	'<': '>', // 60 : 62
+}
+
+// check line returns true and problem bracket if error otherwise false and zero
 func CheckLine(line string) (bool, rune) {
 	open := make([]rune, 0, len(line))
 
@@ -64,7 +73,7 @@ func CheckLine(line string) (bool, rune) {
 		if chr == ')' || chr == ']' || chr == '}' || chr == '>' {
 			prev := open[len(open)-1]
 
-			if prev != matching[chr] {
+			if prev != closeToOpen[chr] {
 				return true, chr
 			}
 
@@ -105,6 +114,78 @@ func Part1(input []string) int {
 	return score
 }
 
+// Filter out the incomplete lines
+func FilterLines(input []string) []string {
+	filtered := make([]string, 0, len(input)/2)
+
+	for _, line := range input {
+		err, _ := CheckLine(line)
+		if !err {
+			filtered = append(filtered, line)
+		}
+	}
+
+	return filtered
+}
+
+// Generate the required pattern of closing braces to complete the line
+func FixLine(line string) string {
+	var fix string
+	open := make([]rune, 0)
+
+	// Work out unclosed openning brackets
+	for _, chr := range line {
+		if chr == ')' || chr == ']' || chr == '}' || chr == '>' {
+			open = open[:len(open)-1]
+		} else {
+			open = append(open, chr)
+		}
+	}
+
+	// Reverse order of closing brackets to fix line
+	for i := len(open) - 1; i >= 0; i-- {
+		chr := open[i]
+		fix += string(openToClose[chr])
+	}
+
+	return fix
+}
+
+// score the fix
+func ScoreFix(line string) int {
+	var score int
+
+	for _, chr := range line {
+		score *= 5
+
+		switch chr {
+		case ')':
+			score += 1
+		case ']':
+			score += 2
+		case '}':
+			score += 3
+		case '>':
+			score += 4
+		}
+	}
+
+	return score
+}
+
 func Part2(input []string) int {
-	return 0
+	filtered := FilterLines(input)
+	scores := make([]int, 0, len(filtered))
+
+	for _, incomplete := range filtered {
+		completed := FixLine(incomplete)
+
+		score := ScoreFix(completed)
+
+		scores = append(scores, score)
+	}
+
+	sort.Ints(scores)
+
+	return scores[len(scores)/2]
 }
