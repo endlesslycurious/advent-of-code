@@ -194,5 +194,16 @@ func Part1(input [][]int, steps int) int {
 }
 
 func Part2(input [][]int) int {
-	return 0
+	grid := CreateGrid(input)
+	step := 1
+
+	for ; ; step++ {
+		flashed := grid.Update()
+
+		if flashed == len(input)*len(input) {
+			break
+		}
+	}
+
+	return step
 }
