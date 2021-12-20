@@ -52,7 +52,7 @@ const (
 	Steps         int = 100 // steps in simulation
 	EnergyInitial int = 0   // energy of an octopus after flashing
 	EnergyFlash   int = 9   // enery level at which an octopus flashes
-	Flashed       int = -1  // An octopus that has flashed this step
+	FlashedMarker int = -1  // An octopus that has flashed this step
 )
 
 type Grid struct {
@@ -79,6 +79,11 @@ func (g Grid) GetEnergy(x, y int) int {
 	return g.data[y][x]
 }
 
+// True if octopus should flash this step
+func (g Grid) ShouldFlash(x, y int) bool {
+	return g.GetEnergy(x, y) > EnergyFlash
+}
+
 // Set the energet level of octopus in cell x,y
 func (g *Grid) SetEnergy(x, y, energy int) {
 	if x < 0 || x >= g.width {
@@ -90,26 +95,17 @@ func (g *Grid) SetEnergy(x, y, energy int) {
 	g.data[y][x] = energy
 }
 
+// Set energy of octopus to Flashed marker
+func (g *Grid) SetFlashed(x, y int) {
+	g.SetEnergy(x, y, FlashedMarker)
+}
+
 // Increase the energy level of octopus in cell x,y
-func (g *Grid) IncEnergy(x, y int) bool {
-	flashed := false
-	energy := g.GetEnergy(x, y)
-
+func (g *Grid) IncEnergy(x, y int) {
 	// can only flash once per step
-	if energy == Flashed {
-		return flashed
+	if energy := g.GetEnergy(x, y); energy != FlashedMarker {
+		g.SetEnergy(x, y, energy+1)
 	}
-
-	energy++
-
-	if energy >= EnergyFlash {
-		g.SetEnergy(x, y, Flashed)
-		flashed = true
-	} else {
-		g.SetEnergy(x, y, energy)
-	}
-
-	return flashed
 }
 
 // Return list of neighbours for a cell
@@ -134,6 +130,12 @@ func (g Grid) GetNeighbours(x, y int) []Point {
 	return neighbours
 }
 
+func (g Grid) Print() {
+	for y := range g.data {
+		fmt.Println(g.data[y])
+	}
+}
+
 // Convience struct represents location on grid
 type Point struct {
 	x, y int
@@ -144,20 +146,33 @@ func Part1(input [][]int, steps int) int {
 	var total int
 
 	for step := 0; step < steps; step++ {
-		flashed := make([]Point, 0)
+		toFlash := make([]Point, 0)
 
-		// increment the energy of all octopuses in grid
+		// increment the energy of all octopuses in grid, recording those ready to flash
 		for x := 0; x < grid.width; x++ {
 			for y := 0; y < grid.height; y++ {
-				if grid.IncEnergy(x, y) {
-					flashed = append(flashed, Point{x, y})
+				grid.IncEnergy(x, y)
 
-					// bump neighbouring octopusses energies too
-					for _, neighbour := range grid.GetNeighbours(x, y) {
-						if grid.IncEnergy(neighbour.x, neighbour.y) {
-							flashed = append(flashed, neighbour)
-						}
-					}
+				if grid.ShouldFlash(x, y) {
+					toFlash = append(toFlash, Point{x, y})
+				}
+			}
+		}
+
+		flashed := make([]Point, 0)
+
+		// Flash octopuses that have enough energy
+		for _, octo := range toFlash {
+			grid.SetFlashed(octo.x, octo.y)
+			flashed = append(flashed, octo)
+
+			// bump neighbouring octopusses energy too
+			for _, neighbour := range grid.GetNeighbours(octo.x, octo.y) {
+				grid.IncEnergy(neighbour.x, neighbour.y)
+
+				if grid.ShouldFlash(neighbour.x, neighbour.y) {
+					grid.SetFlashed(neighbour.x, neighbour.y)
+					flashed = append(flashed, neighbour)
 				}
 			}
 		}
@@ -166,6 +181,9 @@ func Part1(input [][]int, steps int) int {
 		for _, flasher := range flashed {
 			grid.SetEnergy(flasher.x, flasher.y, EnergyInitial)
 		}
+
+		fmt.Println("--- Step", step+1, "---")
+		grid.Print()
 
 		total += len(flashed)
 	}
