@@ -15,9 +15,33 @@ var input = [][]int{
 	{5, 2, 8, 3, 7, 5, 1, 5, 2, 6},
 }
 
-func TestPart1(t *testing.T) {
+func TestGetNeighbours(t *testing.T) {
+	grid := CreateGrid(input)
+	inputs := []Point{{0, 0}, {9, 9}, {5, 5}, {0, 4}, {3, 9}}
+	expected := []int{3, 3, 8, 5, 5}
+
+	for i, in := range inputs {
+		neighbours := grid.GetNeighbours(in.x, in.y)
+		actual := len(neighbours)
+
+		if actual != expected[i] {
+			t.Error("Expected", expected[i], "for", in, "got", actual)
+		}
+	}
+}
+
+func TestPart1Short(t *testing.T) {
+	expected := 204
+	actual := Part1(input, 10)
+
+	if actual != expected {
+		t.Error("Expected", expected, "got", actual)
+	}
+}
+
+func TestPart1Long(t *testing.T) {
 	expected := 1656
-	actual := Part1(input)
+	actual := Part1(input, Steps)
 
 	if actual != expected {
 		t.Error("Expected", expected, "got", actual)

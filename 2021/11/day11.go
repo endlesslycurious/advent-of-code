@@ -44,10 +44,131 @@ func main() {
 	input := ReadInput(filename)
 	fmt.Println("Read", len(input), "lines from", filename)
 
-	answer := Part1(input)
+	answer := Part1(input, Steps)
 	fmt.Println("Part 1 Answer", answer)
 }
 
-func Part1(input [][]int) int {
-	return 0
+const (
+	Steps         int = 100 // steps in simulation
+	EnergyInitial int = 0   // energy of an octopus after flashing
+	EnergyFlash   int = 9   // enery level at which an octopus flashes
+	Flashed       int = -1  // An octopus that has flashed this step
+)
+
+type Grid struct {
+	data   [][]int
+	width  int
+	height int
+}
+
+func CreateGrid(input [][]int) Grid {
+	width := len(input[0])
+	height := len(input)
+
+	return Grid{input, width, height}
+}
+
+// Get the energet level of octopus in cell x,y
+func (g Grid) GetEnergy(x, y int) int {
+	if x < 0 || x >= g.width {
+		log.Fatalln("Get", x, y, "x out of range 0-", g.width)
+	} else if y < 0 || y >= g.height {
+		log.Fatalln("Get", x, y, "y out of range 0-", g.height)
+	}
+
+	return g.data[y][x]
+}
+
+// Set the energet level of octopus in cell x,y
+func (g *Grid) SetEnergy(x, y, energy int) {
+	if x < 0 || x >= g.width {
+		log.Fatalln("Get", x, y, "x out of range 0-", g.width)
+	} else if y < 0 || y >= g.height {
+		log.Fatalln("Get", x, y, "y out of range 0-", g.height)
+	}
+
+	g.data[y][x] = energy
+}
+
+// Increase the energy level of octopus in cell x,y
+func (g *Grid) IncEnergy(x, y int) bool {
+	flashed := false
+	energy := g.GetEnergy(x, y)
+
+	// can only flash once per step
+	if energy == Flashed {
+		return flashed
+	}
+
+	energy++
+
+	if energy >= EnergyFlash {
+		g.SetEnergy(x, y, Flashed)
+		flashed = true
+	} else {
+		g.SetEnergy(x, y, energy)
+	}
+
+	return flashed
+}
+
+// Return list of neighbours for a cell
+func (g Grid) GetNeighbours(x, y int) []Point {
+	neighbours := make([]Point, 0, 9)
+
+	for cx := -1; cx <= 1; cx++ {
+		for cy := -1; cy <= 1; cy++ {
+			// don't check original point
+			if cx == 0 && cy == 0 {
+				continue
+			}
+
+			candidate := Point{x + cx, y + cy}
+
+			if (candidate.x >= 0 && candidate.x < (g.width)) && (candidate.y >= 0 && candidate.y < (g.width)) {
+				neighbours = append(neighbours, candidate)
+			}
+		}
+	}
+
+	return neighbours
+}
+
+// Convience struct represents location on grid
+type Point struct {
+	x, y int
+}
+
+func Part1(input [][]int, steps int) int {
+	grid := CreateGrid(input)
+	var total int
+
+	for step := 0; step < steps; step++ {
+		flashed := make([]Point, 0)
+
+		// increment the energy of all octopuses in grid
+		for x := 0; x < grid.width; x++ {
+			for y := 0; y < grid.height; y++ {
+				if grid.IncEnergy(x, y) {
+					flashed = append(flashed, Point{x, y})
+
+					// bump neighbouring octopusses energies too
+					for _, neighbour := range grid.GetNeighbours(x, y) {
+						if grid.IncEnergy(neighbour.x, neighbour.y) {
+							flashed = append(flashed, neighbour)
+						}
+					}
+				}
+			}
+		}
+
+		// convert flashed marker to zero after energy pass
+		for _, flasher := range flashed {
+			grid.SetEnergy(flasher.x, flasher.y, EnergyInitial)
+		}
+
+		total += len(flashed)
+	}
+
+	return total
 }
