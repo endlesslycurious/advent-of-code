@@ -232,3 +232,12 @@ func TestPart1Long(t *testing.T) {
 		t.Error("Expected", expected, "got", actual)
 	}
 }
+
+func TestPart2(t *testing.T) {
+	expected := 195
+	actual := Part2(input)
+
+	if expected != actual {
+		t.Error("Expected", expected, "got", actual)
+	}
+}

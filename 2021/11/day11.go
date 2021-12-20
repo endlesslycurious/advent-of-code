@@ -46,6 +46,9 @@ func main() {
 
 	answer := Part1(input, Steps)
 	fmt.Println("Part 1 Answer", answer)
+
+	answer = Part2(input)
+	fmt.Println("Part 2 Answer", answer)
 }
 
 const (
@@ -188,4 +191,8 @@ func Part1(input [][]int, steps int) int {
 	}
 
 	return total
+}
+
+func Part2(input [][]int) int {
+	return 0
 }
