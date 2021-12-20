@@ -186,17 +186,32 @@ func CheckGrid(grid Grid, stepGrid Grid, step int, t *testing.T) bool {
 
 func TestGridUpdateSteps(t *testing.T) {
 	grid := CreateGrid(input)
+	var flashes int
 
 	for i, stepData := range afterSteps {
 		stepGrid := CreateGrid(stepData)
 
-		grid.Update()
+		flashes += grid.Update()
 
 		ok := CheckGrid(grid, stepGrid, i+1, t)
 
 		if !ok {
 			break
 		}
+	}
+}
+
+func TestGridUpdateStepsFlashes(t *testing.T) {
+	grid := CreateGrid(input)
+	var flashes int
+
+	for i := 0; i < 10; i++ {
+		flashes += grid.Update()
+	}
+
+	expected := 204
+	if flashes != expected {
+		t.Error("Expected", expected, " flashes got", flashes)
 	}
 }
 

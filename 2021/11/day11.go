@@ -65,11 +65,19 @@ type Grid struct {
 	height int
 }
 
+// Create a grid, copying the input data
 func CreateGrid(input [][]int) Grid {
 	width := len(input[0])
 	height := len(input)
 
-	return Grid{input, width, height}
+	data := make([][]int, len(input))
+
+	for idx := range input {
+		data[idx] = make([]int, len(input[idx]))
+		copy(data[idx], input[idx])
+	}
+
+	return Grid{data, width, height}
 }
 
 // Get the energet level of octopus in cell x,y
