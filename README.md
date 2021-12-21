@@ -47,3 +47,4 @@ Hoping to get at least 25 of 50 possible stars!
 | 09 | ⭐️ | ⭐️ | 2D neighbour comparison |
 | 10 | ⭐️ | ⭐️ | Braces checking |
 | 11 | ⭐️ | ⭐️ | Grid-neighbor analysis |
+| 12 | | | Graph navigation |
