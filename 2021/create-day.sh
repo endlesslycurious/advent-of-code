@@ -2,33 +2,22 @@
 # Make executable with chmod u+x <filename>.sh
 
 # Check parameter count
-if [ "$#" -ne 2 ]; then
-    echo "Requires two parameters; year then day!"
+if [ "$#" -ne 1 ]; then
+    echo "Requires day parameter!"
 else
-    year=$1
-    day=$2
-fi
-
-# Create year folder, if they don't exist
-if [ ! -d "$year" ]
-then
-    echo "Year ${year} folder doesn't exist, creating.."
-    mkdir ./$year
-    echo "Year ${year} folder created!"
-else
-    echo "Year ${year} folder already exists, skipping."
+    day=$1
 fi
 
 # Create day folder and files, if they don't exist
-if [ ! -d "$year/$day" ]
+if [ ! -d "$day" ]
 then
     echo "Day ${day} doesn't exist, creating.."
-    mkdir ./$year/$day
+    mkdir ./$day
 
-    touch "./$year/$day/day${day}.txt"
-    touch "./$year/$day/day${day}.go"
-    touch "./$year/$day/day${day}_test.go"
-    touch "./$year/$day/day${day}_input.txt"
+    touch "./$day/day${day}.txt"
+    touch "./$day/day${day}.go"
+    touch "./$day/day${day}_test.go"
+    touch "./$day/day${day}_input.txt"
 
     echo "Day ${day} folder & files created!"
 else

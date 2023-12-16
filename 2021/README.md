@@ -1,34 +1,33 @@
-# advent-of-code
+# Advent-of-Code 2021
 
-My [advent of code](https://adventofcode.com) solutions in [Go](https://go.dev). 
+My [advent of code](https://adventofcode.com/2021) 2021 solutions in [Go](https://go.dev). 
 
 ## Structure
-Code is organised by year then day:
+Code is organised by day:
 ```
-.\[year]
-  .\day[dd]
-    .\day[dd]_input.txt
-    .\day[dd]_test.go
-    .\day[dd].go
-    .\day[dd].txt
+.\day[dd]
+  .\day[dd]_input.txt
+  .\day[dd]_test.go
+  .\day[dd].go
+  .\day[dd].txt
 ```
 
 ### Creating days
-Use the provided `create-day.sh` shell script to create a new day consistently, e.g. for day 1 of 2021:
+Use the provided `create-day.sh` shell script to create a new day consistently, e.g. for day 1:
 ```
-./create-day.sh 2021 01
+./create-day.sh 01
 ```
 
 ## Testing
 It is intended you run the tests from the repository root:
 ```
-go test ./2021/01/.
+go test ./01/.
 ```
 
 ## Benchmarking
 You also run the benchmarks from the repository root:
 ```
-go test ./2021/01/. --bench .
+go test ./01/. --bench .
 ```
 
 ## Progress
