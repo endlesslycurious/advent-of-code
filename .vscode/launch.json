@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Current",
+            "name": "Debug Current (Go)",
             "type": "go",
             "request": "launch",
             "mode": "auto",
