@@ -5,28 +5,26 @@
 
 #include "inputs.h"
 
-using namespace std;
-
 // Print words to console and return word count
-int func(vector<string> inputs)
+int func(const std::vector<std::string>& inputs)
 {
     int count = 0;
-    for (const string& word : inputs)
+    for (const std::string& word : inputs)
     {
-        cout << word << " ";
+        std::cout << word << " ";
         count++;
     }
-    cout << endl;
+    std::cout << std::endl;
 
     return count;
 }
 
 int main()
 {
-    cout << "-- Beginning testing! --" << endl;
+    std::cout << "-- Beginning testing! --" << std::endl;
 
     int count = func(inputs);
     assert(count == inputs.size());
 
-    cout << "-- Testing passed! --" << endl;
+    std::cout << "-- Testing passed! --" << std::endl;
 }
