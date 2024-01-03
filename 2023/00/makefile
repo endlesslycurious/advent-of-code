@@ -21,9 +21,6 @@ build: dir day00.cpp
 run: build
 	$(BIN)/day00
 
-# Debug the executable
-debug: build
-
 # Delete bin directory
 clean:
 	rm -rf $(BIN)
