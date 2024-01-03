@@ -1,4 +1,4 @@
-# Day 0
+# Day 0 - Testing
 
 Test day to get things setup before throwing problem code into the mix!
 - Make file for building with C++ 20.
@@ -11,3 +11,6 @@ Test day to get things setup before throwing problem code into the mix!
 - `build` to build the project.
 - `run` to run the program.
 - `all` to do all of the above!
+
+## Problem
+The problem statement from Advent of Code would go here..

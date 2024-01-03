@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-#include "input.h"
+#include "inputs.h"
 
 using namespace std;
 
