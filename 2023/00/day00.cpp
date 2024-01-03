@@ -22,6 +22,10 @@ int func(vector<string> inputs)
 
 int main()
 {
+    cout << "-- Beginning testing! --" << endl;
+
     int count = func(inputs);
     assert(count == inputs.size());
+
+    cout << "-- Testing passed! --" << endl;
 }

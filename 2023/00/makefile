@@ -7,7 +7,7 @@
 BIN=bin
 
 # Build all target
-all: dir Build link
+all: clean dir build run
 
 # Create bin directory
 dir:
@@ -15,7 +15,7 @@ dir:
 
 # Compile and links cpp to an executable with debug (-g) information
 build: dir day00.cpp
-	clang++ --std=c++17 day00.cpp -I input.h -g -o $(BIN)/day00
+	clang++ --std=c++20 day00.cpp -I input.h -g -o $(BIN)/day00
 
 # Launch the executable
 run: build
