@@ -2,13 +2,13 @@
 #include <vector>
 #include <string>
 
+#include "input.h"
+
 using namespace std;
 
 int main()
 {
-    vector<string> msg {"Hello", "C++", "Advent of Code", "2023!"};
-
-    for (const string& word : msg)
+    for (const string& word : inputs)
     {
         cout << word << " ";
     }

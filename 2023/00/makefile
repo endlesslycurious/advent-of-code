@@ -15,7 +15,7 @@ dir:
 
 # Compile and links cpp to an executable with debug (-g) information
 build: dir day00.cpp
-	clang++ --std=c++17 day00.cpp -g -o $(BIN)/day00
+	clang++ --std=c++17 day00.cpp -I input.h -g -o $(BIN)/day00
 
 # Launch the executable
 run: build
