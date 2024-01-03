@@ -7,6 +7,7 @@
 
 using namespace std;
 
+// Print words to console and return word count
 int func(vector<string> inputs)
 {
     int count = 0;
