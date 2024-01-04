@@ -1,2 +1,5 @@
 # ignore build files
 **/bin 
+
+# ignore VSCode files
+**/.vscode
