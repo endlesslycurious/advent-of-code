@@ -4,28 +4,28 @@
 # - https://blog.djnavarro.net/posts/2023-06-30_makefiles/
 
 # Variables
-BIN=bin
+TEMP=bin
 
 # Build all target
 .PHONY: all
 all: clean dir build run
 
-# Create bin directory
+# Create TEMP directory
 .PHONY: dir
 dir:
-	mkdir -p $(BIN)
+	mkdir -p $(TEMP)
 
 # Compile and links cpp to an executable with debug (-g) information
 .PHONY: build
 build: dir day00.cpp inputs.h
-	clang++ --std=c++20 day00.cpp -I inputs.h -g -o $(BIN)/day00
+	clang++ --std=c++20 day00.cpp -I inputs.h -g -o $(TEMP)/day00
 
 # Launch the executable
 .PHONY: run
 run: build
-	$(BIN)/day00
+	$(TEMP)/day00
 
-# Delete bin directory
+# Delete TEMP directory
 .PHONY: clean
 clean:
-	rm -rf $(BIN)
+	rm -rf $(TEMP)
