@@ -13,18 +13,25 @@ PROG=AoC-$(notdir $(CURDIR))
 CC=/opt/homebrew/opt/llvm/bin/clang++
 CFLAGS=--std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror
 
+# Compile databse
+COMPDB=$(TEMP)/compile_commands.json
+
 # Build all target
 .PHONY: all
 all: clean dir build run
 
 # Create build directory
-.PHONY: dir
-dir: 
+$(TEMP):
 	mkdir -p $(TEMP)
+
+# Generate compile commands database for clang-tidy
+.PHONY: bear
+bear: makefile $(TEMP)
+	bear --output $(COMPDB) -- make build
 
 # Compile and links cpp to an executable with debug (-g) information
 .PHONY: build
-build: dir main.cpp inputs.h
+build: $(TEMP) main.cpp inputs.h
 	$(CC) $(CFLAGS) main.cpp -I inputs.h -g -o $(TEMP)/$(PROG)
 
 # Launch the executable
