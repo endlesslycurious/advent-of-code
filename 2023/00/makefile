@@ -9,6 +9,10 @@ TEMP=bin
 # Name executable after parent directory e.g AoC-00, AoC-01, etc
 PROG=AoC-$(notdir $(CURDIR))
 
+# Compiler options
+CC=/opt/homebrew/opt/llvm/bin/clang++
+CFLAGS=--std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror
+
 # Build all target
 .PHONY: all
 all: clean dir build run
@@ -21,7 +25,7 @@ dir:
 # Compile and links cpp to an executable with debug (-g) information
 .PHONY: build
 build: dir main.cpp inputs.h
-	clang++ --std=c++20 main.cpp -I inputs.h -g -o $(TEMP)/$(PROG)
+	$(CC) $(CFLAGS) main.cpp -I inputs.h -g -o $(TEMP)/$(PROG)
 
 # Launch the executable
 .PHONY: run
