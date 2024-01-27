@@ -8,36 +8,41 @@ TEMP=bin
 
 # Name executable after parent directory e.g AoC-00, AoC-01, etc
 PROG=AoC-$(notdir $(CURDIR))
+PROG_OUT=$(TEMP)/$(PROG)
 
 # Compiler options
 CC=/opt/homebrew/opt/llvm/bin/clang++
-CFLAGS=--std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror
+CFLAGS=--std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror -g
 
 # Compile databse
 COMPDB=$(TEMP)/compile_commands.json
 
 # Build all target
 .PHONY: all
-all: clean dir build run
+all: clean $(TEMP) $(PROG_OUT)
 
 # Create build directory
 $(TEMP):
 	mkdir -p $(TEMP)
 
 # Generate compile commands database for clang-tidy
-.PHONY: bear
-bear: makefile $(TEMP)
+$(COMPDB): makefile $(TEMP)
 	bear --output $(COMPDB) -- make build
 
-# Compile and links cpp to an executable with debug (-g) information
+.PHONY: bear
+bear: $(COMPDB)
+
+# Compile and links cpp to an executable
+$(PROG_OUT): $(TEMP) main.cpp inputs.h
+	$(CC) $(CFLAGS) main.cpp -I inputs.h -o $(PROG_OUT)
+
 .PHONY: build
-build: $(TEMP) main.cpp inputs.h
-	$(CC) $(CFLAGS) main.cpp -I inputs.h -g -o $(TEMP)/$(PROG)
+build: $(PROG_OUT)
 
 # Launch the executable
 .PHONY: run
-run: build
-	$(TEMP)/$(PROG)
+run: $(PROG_OUT)
+	$(PROG_OUT)
 
 # Delete build directory
 .PHONY: clean
