@@ -9,13 +9,25 @@ export PATH := /opt/homebrew/opt/llvm/bin/:$(PATH)
 # Build directory; intermediate files, symbols and binary
 TEMP=bin
 
+# Source and header filesets
+SRC=$(wildcard *.cpp)
+HDR=$(wildcard *.h)
+
 # Name executable after parent directory e.g AoC-00, AoC-01, etc
 PROG=AoC-$(notdir $(CURDIR))
 PROG_OUT=$(TEMP)/$(PROG)
 
 # Compiler options
+# - C++ 20
+# - Clang standard library
+# - Warnings as errors
+# - Extra warnings
+# - Debug symbols
 CXX=clang++
-CFLAGS=--std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror -g
+CFLAGS=--std=c++20 -stdlib=libc++ -Werror -Wall -Wextra -Wpedantic -Wshadow -g
+
+# Linker options, specify the homebrew install C++ libraries
+LDFLAGS=-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++
 
 # Compile databse required for linting
 COMPDB=$(TEMP)/compile_commands.json
@@ -40,12 +52,12 @@ $(COMPDB): makefile $(TEMP)
 bear: $(COMPDB)
 
 .PHONY: lint
-lint: main.cpp inputs.h
-	$(LINT) $(LINT_FLAGS) main.cpp inputs.h
+lint: $(SRC) $(HDR)
+	$(LINT) $(LINT_FLAGS) $(SRC) $(HDR)
 
 # Compile and link cpp to an executable
-$(PROG_OUT): $(TEMP) main.cpp inputs.h
-	$(CXX) $(CFLAGS) main.cpp -I inputs.h -o $(PROG_OUT)
+$(PROG_OUT): $(TEMP) $(SRC) $(HDR) makefile
+	$(CXX) $(CFLAGS) $(SRC) -I $(HDR) -o $(PROG_OUT) $(LDFLAGS)
 
 .PHONY: build
 build: $(PROG_OUT) lint
