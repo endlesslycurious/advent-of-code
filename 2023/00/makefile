@@ -46,7 +46,7 @@ $(TEMP):
 
 # Generate compile commands database for clang-tidy using bear
 $(COMPDB): makefile $(TEMP)
-	bear --output $(COMPDB) -- make build
+	bear --output $(COMPDB) -- make $(PROG_OUT)
 
 .PHONY: bear
 bear: $(COMPDB)
@@ -60,7 +60,7 @@ $(PROG_OUT): $(TEMP) $(SRC) $(HDR) makefile
 	$(CXX) $(CFLAGS) $(SRC) -I $(HDR) -o $(PROG_OUT) $(LDFLAGS)
 
 .PHONY: build
-build: $(PROG_OUT) lint
+build: $(COMPDB) $(PROG_OUT) lint
 
 # Launch the executable
 .PHONY: run
