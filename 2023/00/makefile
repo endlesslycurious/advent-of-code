@@ -11,7 +11,7 @@ PROG=AoC-$(notdir $(CURDIR))
 PROG_OUT=$(TEMP)/$(PROG)
 
 # Compiler options
-CC=/opt/homebrew/opt/llvm/bin/clang++
+CXX=/opt/homebrew/opt/llvm/bin/clang++
 CFLAGS=--std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror -g
 
 # Compile databse
@@ -34,7 +34,7 @@ bear: $(COMPDB)
 
 # Compile and links cpp to an executable
 $(PROG_OUT): $(TEMP) main.cpp inputs.h
-	$(CC) $(CFLAGS) main.cpp -I inputs.h -o $(PROG_OUT)
+	$(CXX) $(CFLAGS) main.cpp -I inputs.h -o $(PROG_OUT)
 
 .PHONY: build
 build: $(PROG_OUT)
