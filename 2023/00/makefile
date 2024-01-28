@@ -3,6 +3,9 @@
 # - https://makefiletutorial.com/#makefile-cookbook
 # - https://blog.djnavarro.net/posts/2023-06-30_makefiles/
 
+# Insert homebrew installed LLVM at front of path, mainly to get bear intercepts to work
+export PATH := /opt/homebrew/opt/llvm/bin/:$(PATH)
+
 # Build directory; intermediate files, symbols and binary
 TEMP=bin
 
@@ -11,7 +14,7 @@ PROG=AoC-$(notdir $(CURDIR))
 PROG_OUT=$(TEMP)/$(PROG)
 
 # Compiler options
-CXX=/opt/homebrew/opt/llvm/bin/clang++
+CXX=clang++
 CFLAGS=--std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror -g
 
 # Compile databse
@@ -25,14 +28,14 @@ all: clean $(TEMP) $(PROG_OUT)
 $(TEMP):
 	mkdir -p $(TEMP)
 
-# Generate compile commands database for clang-tidy
+# Generate compile commands database for clang-tidy using bear
 $(COMPDB): makefile $(TEMP)
 	bear --output $(COMPDB) -- make build
 
 .PHONY: bear
 bear: $(COMPDB)
 
-# Compile and links cpp to an executable
+# Compile and link cpp to an executable
 $(PROG_OUT): $(TEMP) main.cpp inputs.h
 	$(CXX) $(CFLAGS) main.cpp -I inputs.h -o $(PROG_OUT)
 
