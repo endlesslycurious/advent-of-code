@@ -38,7 +38,7 @@ LINT_FLAGS=-checks=-*,bugprone-*,readability-*,modernize-* -p $(COMPDB)
 
 # Build all target
 .PHONY: all
-all: clean $(TEMP) $(PROG_OUT)
+all: $(TEMP) $(PROG_OUT)
 
 # Create build directory
 $(TEMP):
