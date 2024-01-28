@@ -17,8 +17,12 @@ PROG_OUT=$(TEMP)/$(PROG)
 CXX=clang++
 CFLAGS=--std=c++20 -Wall -Wextra -Wpedantic -Wshadow -Werror -g
 
-# Compile databse
+# Compile databse required for linting
 COMPDB=$(TEMP)/compile_commands.json
+
+# Linter options
+LINT=clang-tidy
+LINT_FLAGS=-checks=-*,bugprone-*,readability-*,modernize-* -p $(COMPDB)
 
 # Build all target
 .PHONY: all
@@ -35,12 +39,16 @@ $(COMPDB): makefile $(TEMP)
 .PHONY: bear
 bear: $(COMPDB)
 
+.PHONY: lint
+lint: main.cpp inputs.h
+	$(LINT) $(LINT_FLAGS) main.cpp inputs.h
+
 # Compile and link cpp to an executable
 $(PROG_OUT): $(TEMP) main.cpp inputs.h
 	$(CXX) $(CFLAGS) main.cpp -I inputs.h -o $(PROG_OUT)
 
 .PHONY: build
-build: $(PROG_OUT)
+build: $(PROG_OUT) lint
 
 # Launch the executable
 .PHONY: run

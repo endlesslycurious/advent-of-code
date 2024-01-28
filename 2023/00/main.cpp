@@ -6,7 +6,7 @@
 #include "inputs.h"
 
 // Print words to console and return word count
-unsigned long func(const std::vector<std::string>& words)
+auto func(const std::vector<std::string>& words) -> unsigned long
 {
     unsigned long count = 0;
     for (const std::string& word : words)
@@ -19,7 +19,7 @@ unsigned long func(const std::vector<std::string>& words)
     return count;
 }
 
-int main()
+auto main() -> int
 {
     std::cout << "-- Beginning testing! --" << std::endl;
 

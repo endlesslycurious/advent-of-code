@@ -1,5 +1,5 @@
-#ifndef _inputs_h_
-#define _inputs_h_
+#ifndef INPUTS_H
+#define INPUTS_H
 
 #include <vector>
 #include <string>
