@@ -26,7 +26,8 @@ PROG_OUT=$(TEMP)/$(PROG)
 CXX=clang++
 CFLAGS=--std=c++20 -stdlib=libc++ -Werror -Wall -Wextra -Wpedantic -Wshadow -g
 
-# Linker options, specify the homebrew install C++ libraries
+# Linker options
+# - Specify the homebrew install C++ libraries
 LDFLAGS=-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++
 
 # Compile databse required for linting
