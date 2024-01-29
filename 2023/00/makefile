@@ -37,10 +37,6 @@ COMPDB=$(TEMP)/compile_commands.json
 LINT=clang-tidy
 LINT_FLAGS=-checks=-*,bugprone-*,readability-*,modernize-* -p $(COMPDB)
 
-# Build all target
-.PHONY: all
-all: $(TEMP) $(PROG_OUT)
-
 # Create build directory
 $(TEMP):
 	mkdir -p $(TEMP)
@@ -49,11 +45,8 @@ $(TEMP):
 $(COMPDB): makefile $(TEMP)
 	bear --output $(COMPDB) -- make $(PROG_OUT)
 
-.PHONY: bear
-bear: $(COMPDB)
-
 .PHONY: lint
-lint: $(SRC) $(HDR)
+lint: $(COMPDB) $(SRC) $(HDR)
 	$(LINT) $(LINT_FLAGS) $(SRC) $(HDR)
 
 # Compile and link cpp to an executable
