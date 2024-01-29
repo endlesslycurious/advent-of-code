@@ -2,6 +2,7 @@
 # - https://devblogs.microsoft.com/cppblog/now-announcing-makefile-support-in-visual-studio-code/
 # - https://makefiletutorial.com/#makefile-cookbook
 # - https://blog.djnavarro.net/posts/2023-06-30_makefiles/
+# - https://www.lucavall.in/blog/crafting-clean-maintainable-understandable-makefile-for-c-project
 
 # Insert homebrew installed LLVM at front of path, mainly to get bear intercepts to work
 export PATH := /opt/homebrew/opt/llvm/bin/:$(PATH)
