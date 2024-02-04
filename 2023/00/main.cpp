@@ -1,12 +1,12 @@
 #include <cassert>
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "inputs.h"
 
 // Print words to console and return word count
-auto func(const std::vector<std::string>& words) -> unsigned long
+auto process(const std::vector<std::string>& words) -> unsigned long
 {
     unsigned long count = 0;
     for (const std::string& word : words)
@@ -23,8 +23,17 @@ auto main() -> int
 {
     std::cout << "-- Beginning testing! --" << std::endl;
 
-    auto count = func(inputs);
+    // load inputs from text file
+    std::vector<std::string> inputs;
+    auto success = readInput(inputs);
+    assert(success);
+    assert(inputs.size() == read_input_test.size());
+
+    // process the inputs
+    auto count = process(inputs);
     assert(count == inputs.size());
 
     std::cout << "-- Testing passed! --" << std::endl;
+
+    return 0;
 }
