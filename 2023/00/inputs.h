@@ -14,7 +14,7 @@ inline auto readInput(std::vector<std::string>& output) noexcept -> bool
 {
     try
     {
-        std::ifstream file("input.txt");
+        std::ifstream file("inputs.txt");
 
         if( file.good() && file.is_open())
         {
