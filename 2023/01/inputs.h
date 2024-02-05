@@ -17,12 +17,15 @@ inline std::vector<std::pair<unsigned int, std::string>> test_find_cal_vals= {
     {77, "treb7uchet"}
     }; // NOLINTEND
 
+// Lines of input from inputs.txt
+#define INPUTS_COUNT 1000
+
 // Read inputs from text file, use exception handling to prevent throws
-inline auto readInput(std::vector<std::string>& output) noexcept -> bool
+inline auto readInput(std::vector<const std::string>& output) noexcept -> bool
 {
     try
     {
-        std::ifstream file("input.txt");
+        std::ifstream file("inputs.txt");
 
         if( file.good() && file.is_open())
         {
