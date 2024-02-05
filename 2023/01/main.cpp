@@ -50,36 +50,44 @@ auto process(const std::vector<const std::string>& lines) -> unsigned int
 
 auto main() -> int
 {
-    std::cout << "-- Beginning testing! --" << std::endl;
-
-    // test finding calibration values using supplied inputs & outputs
-    std::cout << " - Testing findCalibrationValue! -" << std::endl;
-    unsigned int test_sum {0};
-    for( auto pair : test_find_cal_vals)
+    try
     {
-        std::cout << "   " << pair.second << " => " << pair.first << std::endl;
-        auto val = findCalibrationValue(pair.second);
-        assert(pair.first == val);
+        std::cout << "-- Beginning testing! --" << std::endl;
 
-        test_sum += val;
+        // test finding calibration values using supplied inputs & outputs
+        std::cout << " - Testing findCalibrationValue! -" << std::endl;
+        unsigned int test_sum {0};
+        for( auto pair : test_find_cal_vals)
+        {
+            std::cout << "   " << pair.second << " => " << pair.first << std::endl;
+            auto val = findCalibrationValue(pair.second);
+            assert(pair.first == val);
+
+            test_sum += val;
+        }
+        std::cout << "   " << "Sum = " << test_sum << std::endl;
+        assert(test_sum == 142);
+
+        std::cout << " - Beginning calculation from inputs! -" << std::endl;
+        // load inputs from text file
+        std::vector<const std::string> inputs;
+        auto success = readInput(inputs);
+        assert(success);
+        std::cout << "   " << inputs.size() << " inputs read" << std::endl;
+        assert(inputs.size() == INPUTS_COUNT);
+
+        // process the inputs into values and generate the sum
+        auto sum = process(inputs);
+        std::cout << "   Sum = " << sum << std::endl;
+        assert (sum == 55621);
+
+        std::cout << "-- Testing passed! --" << std::endl;
     }
-    std::cout << "   " << "Sum = " << test_sum << std::endl;
-    assert(test_sum == 142);
-
-    std::cout << " - Begining calculation from inputs! -" << std::endl;
-    // load inputs from text file
-    std::vector<const std::string> inputs;
-    auto success = readInput(inputs);
-    assert(success);
-    std::cout << "   " << inputs.size() << " inputs read" << std::endl;
-    assert(inputs.size() == INPUTS_COUNT);
-
-    // process the inputs into values and generate the sum
-    auto sum = process(inputs);
-    std::cout << "   Sum = " << sum << std::endl;
-    assert (sum == 55621);
-
-    std::cout << "-- Testing passed! --" << std::endl;
-
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        __builtin_debugtrap();
+        return 1;
+    }
     return 0;
 }
