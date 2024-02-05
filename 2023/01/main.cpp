@@ -87,7 +87,9 @@ auto main() -> int
     {
         std::cerr << e.what() << '\n';
         __builtin_debugtrap();
+
         return 1;
     }
+
     return 0;
 }
