@@ -34,6 +34,27 @@ auto findCalibrationValue(const std::string& input) -> unsigned int{
     return res;
 }
 
+void testFindCalibrationValue()
+{
+    std::cout << " - Testing findCalibrationValue! -" << std::endl;
+
+    // test finding calibration values using supplied inputs & outputs
+    unsigned int test_sum {0};
+    for( auto pair : test_find_cal_vals)
+    {
+        std::cout << "   " << pair.second << " => " << pair.first << std::endl;
+        auto val = findCalibrationValue(pair.second);
+        assert(pair.first == val);
+
+        test_sum += val;
+    }
+
+    std::cout << "   " << "Sum = " << test_sum << std::endl;
+    assert(test_sum == 142);
+
+    std::cout << " - Testing passed! -" << std::endl;
+}
+
 // Process input lines finding calibration values then generating the sum
 auto process(const std::vector<const std::string>& lines) -> unsigned int
 {
@@ -52,23 +73,9 @@ auto main() -> int
 {
     try
     {
-        std::cout << "-- Beginning testing! --" << std::endl;
+        testFindCalibrationValue();
 
-        // test finding calibration values using supplied inputs & outputs
-        std::cout << " - Testing findCalibrationValue! -" << std::endl;
-        unsigned int test_sum {0};
-        for( auto pair : test_find_cal_vals)
-        {
-            std::cout << "   " << pair.second << " => " << pair.first << std::endl;
-            auto val = findCalibrationValue(pair.second);
-            assert(pair.first == val);
-
-            test_sum += val;
-        }
-        std::cout << "   " << "Sum = " << test_sum << std::endl;
-        assert(test_sum == 142);
-
-        std::cout << " - Beginning calculation from inputs! -" << std::endl;
+        std::cout << " - Beginning V1 calculation from inputs! -" << std::endl;
         // load inputs from text file
         std::vector<const std::string> inputs;
         auto success = readInput(inputs);
@@ -81,7 +88,6 @@ auto main() -> int
         std::cout << "   Sum = " << sum << std::endl;
         assert (sum == 55621);
 
-        std::cout << "-- Testing passed! --" << std::endl;
     }
     catch(const std::exception& e)
     {
