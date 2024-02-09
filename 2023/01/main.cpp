@@ -8,18 +8,15 @@
 
 // Make double digit int using first and last digits found in source string
 auto findCalibrationValueP1(const std::string& input) -> unsigned int{
-    int first{-1};
-    int last{-1};
+    std::string first, last;
 
      for(const char& chr :input)
      {
         if (chr >= '0' && chr <= '9')
         {
-            // need null terminated string or atoi will read too far!
-            std::string temp(&chr, 1);
-            int digit = atoi(temp.c_str());
+            std::string digit(&chr, 1);
 
-            if( first == -1 && last == -1)
+            if( first.empty() && last.empty())
             {
                 first = digit;
             }
@@ -28,7 +25,7 @@ auto findCalibrationValueP1(const std::string& input) -> unsigned int{
         }
      }
 
-     std::string res_str = std::to_string(first) + std::to_string(last);
+     std::string res_str = first + last;
      unsigned int res = stoi(res_str);
 
     return res;
