@@ -17,6 +17,21 @@ inline std::vector<std::pair<unsigned int, std::string>> test_find_cal_vals_p1= 
     {77, "treb7uchet"}
     }; // NOLINTEND
 
+#define P1_SUM 142
+
+// Inputs to test findCalibrationValueP2 NOLINTBEGIN
+inline std::vector<std::pair<unsigned int, std::string>> test_find_cal_vals_p2= {
+    {29, "two1nine"},
+    {83, "eightwothree"},
+    {13, "abcone2threexyz"},
+    {24, "xtwone3four"},
+    {42, "4nineeightseven2"},
+    {14, "zoneight234"},
+    {76, "7pqrstsixteen"}
+    }; // NOLINTEND
+
+#define P2_SUM 281
+
 // Lines of input from inputs.txt
 #define INPUTS_COUNT 1000
 

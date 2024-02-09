@@ -50,7 +50,28 @@ void testFindCalibrationValueP1()
     }
 
     std::cout << "   " << "Sum = " << test_sum << std::endl;
-    assert(test_sum == 142);
+    assert(test_sum == P1_SUM);
+
+    std::cout << " - Testing passed! -" << std::endl;
+}
+
+void testFindCalibrationValueP2()
+{
+    std::cout << " - Testing findCalibrationValueP2! -" << std::endl;
+
+    // test finding calibration values using supplied inputs & outputs
+    unsigned int test_sum {0};
+    for( auto pair : test_find_cal_vals_p2)
+    {
+        std::cout << "   " << pair.second << " => " << pair.first << std::endl;
+        auto val = findCalibrationValueP1(pair.second);
+        assert(pair.first == val);
+
+        test_sum += val;
+    }
+
+    std::cout << "   " << "Sum = " << test_sum << std::endl;
+    assert(test_sum == P2_SUM);
 
     std::cout << " - Testing passed! -" << std::endl;
 }
@@ -60,6 +81,7 @@ auto main() -> int
     try
     {
         testFindCalibrationValueP1();
+        testFindCalibrationValueP2();
 
         std::cout << " - Beginning V1 calculation from inputs! -" << std::endl;
         // load inputs from text file
