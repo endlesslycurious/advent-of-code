@@ -40,7 +40,7 @@ void testFindCalibrationValueP1()
 
     // test finding calibration values using supplied inputs & outputs
     unsigned int test_sum {0};
-    for( auto pair : test_find_cal_vals)
+    for( auto pair : test_find_cal_vals_p1)
     {
         std::cout << "   " << pair.second << " => " << pair.first << std::endl;
         auto val = findCalibrationValueP1(pair.second);
