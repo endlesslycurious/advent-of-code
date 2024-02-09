@@ -6,15 +6,15 @@
 #include <string>
 #include <vector>
 
-// Input for function, would be read from file if was allot more data
-inline std::vector<std::string> read_input_test {"Hello", "C++", "Advent of Code", "2023!"};
+#define INPUT_FILE "inputs.txt"
+#define INPUT_COUNT 4
 
 // Read inputs from text file, use exception handling to prevent throws
 inline auto readInput(std::vector<std::string>& output) noexcept -> bool
 {
     try
     {
-        std::ifstream file("inputs.txt");
+        std::ifstream file(INPUT_FILE);
 
         if( file.good() && file.is_open())
         {

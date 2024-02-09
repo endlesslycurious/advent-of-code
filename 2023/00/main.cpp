@@ -23,13 +23,14 @@ auto main() -> int
 {
     try
     {
-        std::cout << "-- Beginning testing! --" << std::endl;
-
         // load inputs from text file
         std::vector<std::string> inputs;
         auto success = readInput(inputs);
         assert(success);
-        assert(inputs.size() == read_input_test.size());
+        assert(inputs.size() == INPUT_COUNT);
+        std::cout << "Read " << inputs.size() << " inputs from " << INPUT_FILE << std::endl;
+
+        std::cout << "-- Beginning testing! --" << std::endl;
 
         // process the inputs
         auto count = process(inputs);
