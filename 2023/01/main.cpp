@@ -7,7 +7,7 @@
 #include "inputs.h"
 
 // Make double digit int using first and last digits found in source string
-auto findCalibrationValue(const std::string& input) -> unsigned int{
+auto findCalibrationValueP1(const std::string& input) -> unsigned int{
     int first{-1};
     int last{-1};
 
@@ -34,16 +34,16 @@ auto findCalibrationValue(const std::string& input) -> unsigned int{
     return res;
 }
 
-void testFindCalibrationValue()
+void testFindCalibrationValueP1()
 {
-    std::cout << " - Testing findCalibrationValue! -" << std::endl;
+    std::cout << " - Testing findCalibrationValueP1! -" << std::endl;
 
     // test finding calibration values using supplied inputs & outputs
     unsigned int test_sum {0};
     for( auto pair : test_find_cal_vals)
     {
         std::cout << "   " << pair.second << " => " << pair.first << std::endl;
-        auto val = findCalibrationValue(pair.second);
+        auto val = findCalibrationValueP1(pair.second);
         assert(pair.first == val);
 
         test_sum += val;
@@ -55,25 +55,11 @@ void testFindCalibrationValue()
     std::cout << " - Testing passed! -" << std::endl;
 }
 
-// Process input lines finding calibration values then generating the sum
-auto process(const std::vector<const std::string>& lines) -> unsigned int
-{
-    unsigned int res {0};
-
-    for (const std::string& line : lines)
-    {
-        auto val = findCalibrationValue(line);
-        res += val;
-    }
-
-    return res;
-}
-
 auto main() -> int
 {
     try
     {
-        testFindCalibrationValue();
+        testFindCalibrationValueP1();
 
         std::cout << " - Beginning V1 calculation from inputs! -" << std::endl;
         // load inputs from text file
@@ -84,7 +70,11 @@ auto main() -> int
         assert(inputs.size() == INPUTS_COUNT);
 
         // process the inputs into values and generate the sum
-        auto sum = process(inputs);
+        unsigned int sum {0};
+        for( const std::string& line : inputs)
+        {
+            sum += findCalibrationValueP1(line);
+        }
         std::cout << "   Sum = " << sum << std::endl;
         assert (sum == 55621);
 
