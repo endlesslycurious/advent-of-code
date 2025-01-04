@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "2024"
+version = "0.1.0"
+description = "Advent of Code 2024 solutions in Python"
+authors = ["Daniel Brown"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+
+[tool.black]
+line-length = 120
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
