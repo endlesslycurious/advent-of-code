@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-//  Read the input file and return slice of ints
+// Read the input file and return slice of ints
 func ReadIntsFile(filename string) []int {
 	data := make([]int, 0)
 
