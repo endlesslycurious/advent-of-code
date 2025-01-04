@@ -5,5 +5,5 @@ My [advent of code](https://adventofcode.com/) solutions in various programming 
 | Year | Language | ⭐️ | Folder | Notes |
 |:----:|:--------:|:-----:|:------:|:------:|
 | [2021](https://adventofcode.com/2021) |    Go    | 22/50 | [2021](./2021/) |  [Notes](./2021/README.md)  |
-| [2023](https://adventofcode.com/2023) |    C++   | 02/50 | 2023 |  Notes  |
+| [2023](https://adventofcode.com/2023) |    C++   | 02/50 | [2023](./2023/) |  [Notes](./2023/README.md)  |
 |      |          |       |        |        |
