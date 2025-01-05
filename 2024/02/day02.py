@@ -70,7 +70,7 @@ def part_two(filename: str) -> int:
     for _ in filter(analyse_safety, reports):
         safe += 1
 
-    # second pass: brute force, remove an element from unsafe report then retest
+    # second pass: brute force, in sequence remove single element from an unsafe report then retest
     for report in filter(lambda r: not analyse_safety(r), reports):
 
         for index in range(len(report)):
