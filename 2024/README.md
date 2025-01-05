@@ -28,3 +28,4 @@ Hoping to get at least 25 of 50 possible stars!
 | Day | Part 1 | Part 2 | Notes |
 | :---: | :---: | :---: | :---- |
 | 01 | ⭐️ | ⭐️ | Historian Hysteria |
+| 02 | ⭐️ |   | Red-Nosed Reports |

@@ -1,8 +1,9 @@
 """AoC 2024 - Day 2 tests"""
 
 import unittest
+from unittest.mock import mock_open, patch
 
-from day02 import analyse_safety
+from day02 import analyse_safety, part_one, read_inputs
 
 
 class DayTwoTests(unittest.TestCase):
@@ -21,6 +22,31 @@ class DayTwoTests(unittest.TestCase):
         for report, expected in inputs:
             res: bool = analyse_safety(report)
             self.assertEqual(res, expected, msg=f"{report} -> {res}, expected {expected}!")
+
+    def test_read_inputs(self) -> None:
+        """Verify read input method"""
+        data: str = "7 6 4 2 1\n1 2 7 8 9\n9 7 6 2 1\n1 3 2 4 5\n8 6 4 4 1\n1 3 6 7 9"
+        expected: list[list[int]] = [
+            [7, 6, 4, 2, 1],
+            [1, 2, 7, 8, 9],
+            [9, 7, 6, 2, 1],
+            [1, 3, 2, 4, 5],
+            [8, 6, 4, 4, 1],
+            [1, 3, 6, 7, 9],
+        ]
+
+        with patch("builtins.open", mock_open(read_data=data)):
+            reports: list[list[int]] = read_inputs("foo")
+            for report, answer in zip(reports, expected):
+                self.assertEqual(report, answer)
+
+    def test_part_one(self) -> None:
+        """Verify part one soltuion"""
+        data: str = "7 6 4 2 1\n1 2 7 8 9\n9 7 6 2 1\n1 3 2 4 5\n8 6 4 4 1\n1 3 6 7 9"
+
+        with patch("builtins.open", mock_open(read_data=data)):
+            res: int = part_one("bar")
+            self.assertEqual(res, 2)
 
 
 if __name__ == "__main__":
