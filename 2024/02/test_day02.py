@@ -3,7 +3,7 @@
 import unittest
 from unittest.mock import mock_open, patch
 
-from day02 import analyse_safety_infractions, part_one, read_inputs
+from day02 import analyse_safety_infractions, part_one, part_two, read_inputs
 
 
 class DayTwoTests(unittest.TestCase):
@@ -45,8 +45,16 @@ class DayTwoTests(unittest.TestCase):
         data: str = "7 6 4 2 1\n1 2 7 8 9\n9 7 6 2 1\n1 3 2 4 5\n8 6 4 4 1\n1 3 6 7 9"
 
         with patch("builtins.open", mock_open(read_data=data)):
-            res: int = part_one("bar")
+            res: int = part_one("foo")
             self.assertEqual(res, 2)
+
+    def test_part_two(self) -> None:
+        """Verify part two soltuion"""
+        data: str = "7 6 4 2 1\n1 2 7 8 9\n9 7 6 2 1\n1 3 2 4 5\n8 6 4 4 1\n1 3 6 7 9"
+
+        with patch("builtins.open", mock_open(read_data=data)):
+            res: int = part_two("bar")
+            self.assertEqual(res, 4)
 
 
 if __name__ == "__main__":

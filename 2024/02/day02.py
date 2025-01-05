@@ -61,11 +61,35 @@ def part_one(filename: str) -> int:
     return safe
 
 
+def part_two(filename: str) -> int:
+    """Reads reports from files, attempts to correct first bad reading and returns number of safe reports"""
+    reports: list[list[int]] = read_inputs(filename)
+    safe: int = 0
+
+    # first pass get the safe reports requiring no modification
+    for _ in filter(analyse_safety, reports):
+        safe += 1
+
+    # second pass remove first bad reading from unsafe report then retest
+    for report in filter(lambda r: not analyse_safety(r), reports):
+        _, index = analyse_safety_infractions(report)
+
+        del report[index]
+
+        if analyse_safety(report):
+            safe += 1
+
+    return safe
+
+
 def main() -> None:
     """Main function"""
-    inputs: str = "input_day02.txt"
-    safe: int = part_one(inputs)
+    filename: str = "input_day02.txt"
+    safe: int = part_one(filename)
     print(f"Part One - {safe} safe repors!")
+
+    safe = part_two(filename)
+    print(f"Part Two - {safe} safe repors!")
 
 
 if __name__ == "__main__":
