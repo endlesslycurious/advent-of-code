@@ -5,8 +5,7 @@ from typing import Iterator
 
 def analyse_safety(report: list[int]) -> bool:
     """Analyse the safety of a report, true for safe"""
-    increase: int = 0
-    decrease: int = 0
+    increasing: str = " "
 
     for index, reading in enumerate(report):
         if index == 0:
@@ -23,14 +22,12 @@ def analyse_safety(report: list[int]) -> bool:
             return False
 
         if reading > previous:
-            increase += 1
+            increasing = "+" if increasing != "-" else "bad"
         else:
-            decrease += 1
+            increasing = "-" if increasing != "+" else "bad"
 
-    # if not all increasing or decreasing then unsafe!
-    intervals: int = len(report) - 1
-    if (increase != intervals) & (decrease != intervals):
-        return False
+        if increasing == "bad":
+            return False
 
     return True
 
