@@ -3,24 +3,24 @@
 import unittest
 from unittest.mock import mock_open, patch
 
-from day02 import analyse_safety, part_one, read_inputs
+from day02 import analyse_safety_infractions, part_one, read_inputs
 
 
 class DayTwoTests(unittest.TestCase):
     """Day two tests"""
 
-    def test_analyse_safety(self) -> None:
+    def test_analyse_safety_infractions(self) -> None:
         """Verify the analyse_safety method"""
-        inputs: list[tuple[list[int], bool]] = [
-            ([7, 6, 4, 2, 1], True),
-            ([1, 2, 7, 8, 9], False),
-            ([9, 7, 6, 2, 1], False),
-            ([1, 3, 2, 4, 5], False),
-            ([8, 6, 4, 4, 1], False),
-            ([1, 3, 6, 7, 9], True),
+        inputs: list[tuple[list[int], tuple[bool, int]]] = [
+            ([7, 6, 4, 2, 1], (True, -1)),
+            ([1, 2, 7, 8, 9], (False, 2)),
+            ([9, 7, 6, 2, 1], (False, 3)),
+            ([1, 3, 2, 4, 5], (False, 2)),
+            ([8, 6, 4, 4, 1], (False, 3)),
+            ([1, 3, 6, 7, 9], (True, -1)),
         ]
         for report, expected in inputs:
-            res: bool = analyse_safety(report)
+            res: tuple[bool, int] = analyse_safety_infractions(report)
             self.assertEqual(res, expected, msg=f"{report} -> {res}, expected {expected}!")
 
     def test_read_inputs(self) -> None:

@@ -3,8 +3,8 @@
 from typing import Iterator
 
 
-def analyse_safety(report: list[int]) -> bool:
-    """Analyse the safety of a report, true for safe"""
+def analyse_safety_infractions(report: list[int]) -> tuple[bool, int]:
+    """Analyse the safety of a report, true for safe with -1 or false with index of failing reading"""
     increasing: str = " "
 
     for index, reading in enumerate(report):
@@ -15,11 +15,11 @@ def analyse_safety(report: list[int]) -> bool:
 
         # Constant readings are unsafe
         if reading == previous:
-            return False
+            return (False, index)
 
         # Large swings in readings are unsafe
         if abs(reading - previous) > 3:
-            return False
+            return (False, index)
 
         if reading > previous:
             increasing = "+" if increasing != "-" else "bad"
@@ -27,9 +27,15 @@ def analyse_safety(report: list[int]) -> bool:
             increasing = "-" if increasing != "+" else "bad"
 
         if increasing == "bad":
-            return False
+            return (False, index)
 
-    return True
+    return (True, -1)
+
+
+def analyse_safety(report: list[int]) -> bool:
+    """Verify an report is safe, returns true if safe"""
+    safe, _ = analyse_safety_infractions(report)
+    return safe is True
 
 
 def read_inputs(filename: str) -> list[list[int]]:
