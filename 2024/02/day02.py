@@ -86,10 +86,10 @@ def main() -> None:
     """Main function"""
     filename: str = "input_day02.txt"
     safe: int = part_one(filename)
-    print(f"Part One - {safe} safe repors!")
+    print(f"Part One - {safe} safe reports!")
 
     safe = part_two(filename)
-    print(f"Part Two - {safe} safe repors!")
+    print(f"Part Two - {safe} safe reports!")
 
 
 if __name__ == "__main__":
