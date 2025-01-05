@@ -70,14 +70,17 @@ def part_two(filename: str) -> int:
     for _ in filter(analyse_safety, reports):
         safe += 1
 
-    # second pass remove first bad reading from unsafe report then retest
+    # second pass: brute force, remove an element from unsafe report then retest
     for report in filter(lambda r: not analyse_safety(r), reports):
-        _, index = analyse_safety_infractions(report)
 
-        del report[index]
+        for index in range(len(report)):
+            copy: list[int] = report.copy()
 
-        if analyse_safety(report):
-            safe += 1
+            del copy[index]
+
+            if analyse_safety(copy):
+                safe += 1
+                break
 
     return safe
 
