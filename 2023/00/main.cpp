@@ -41,7 +41,7 @@ auto main() -> int
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
-        __builtin_debugtrap();
+        __builtin_trap();
         
         return 1;
     }

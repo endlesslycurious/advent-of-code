@@ -33,17 +33,17 @@ inline std::vector<std::pair<unsigned int, std::string>> test_find_cal_vals_p2= 
 #define P2_SUM 281
 
 // digit-words NOLINTBEGIN
-inline std::vector<std::pair<std::string, std::string>> digit_words = {
-    {"zero","0"},
-    {"one","1"},
-    {"two","2"},
-    {"three", "3"},
-    {"four", "4"},
-    {"five", "5"},
-    {"six", "6"},
-    {"seven", "7"},
-    {"eight", "8"},
-    {"nine", "9"}
+inline std::vector<std::pair<const char *, int>> digit_words = {
+    {"zero",0},
+    {"one",1},
+    {"two",2},
+    {"three",3},
+    {"four",4},
+    {"five",5},
+    {"six",6},
+    {"seven",7},
+    {"eight",8},
+    {"nine",9}
     };  // NOLINTEND
 
 // Lines of input from inputs.txt
@@ -51,7 +51,7 @@ inline std::vector<std::pair<std::string, std::string>> digit_words = {
 #define INPUTS_FILE "inputs.txt"
 
 // Read inputs from text file, use exception handling to prevent throws
-inline auto readInput(std::vector<const std::string>& output) noexcept -> bool
+inline auto readInput(std::vector<std::string>& output) noexcept -> bool
 {
     try
     {

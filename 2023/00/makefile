@@ -24,13 +24,11 @@ PROG_OUT=$(TEMP)/$(PROG)
 # - Warnings as errors
 # - Extra warnings
 # - Debug symbols
-CXX=clang++
-CFLAGS=--std=c++20 -stdlib=libc++ -Werror -Wall -Wextra -Wpedantic -Wshadow -g
-
+#CXX=clang++
+CFLAGS=--std=c++20 -Werror -Wall -Wextra -Wpedantic -Wshadow -g
 # Linker options
 # - Specify the homebrew install C++ libraries
-LDFLAGS=-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++
-
+#LDFLAGS=-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++
 # Compile databse required for linting
 COMPDB=$(TEMP)/compile_commands.json
 
@@ -43,7 +41,8 @@ $(TEMP):
 	mkdir -p $(TEMP)
 
 # Generate compile commands database for clang-tidy using bear
-$(COMPDB): makefile $(TEMP)
+$(COMPDB): makefile
+	mkdir -p $(TEMP)
 	bear --output $(COMPDB) -- make $(PROG_OUT)
 
 .PHONY: lint
@@ -52,7 +51,7 @@ lint: $(COMPDB) $(SRC) $(HDR)
 
 # Compile and link cpp to an executable
 $(PROG_OUT): $(TEMP) $(SRC) $(HDR) makefile
-	$(CXX) $(CFLAGS) $(SRC) -I $(HDR) -o $(PROG_OUT) $(LDFLAGS)
+	$(CXX) $(CFLAGS) $(SRC) -o $(PROG_OUT) 
 
 .PHONY: build
 build: $(COMPDB) $(PROG_OUT) lint
