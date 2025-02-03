@@ -3,33 +3,24 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include <cstring>
 
 #include "inputs.h"
 
 // Make double digit int using first and last digits found in source string
 auto findCalibrationValueP1(const std::string& input) -> unsigned int{
-    std::string first;
-    std::string last;
+    int first = 0, last = 0;
 
      for(const char& chr :input)
      {
         if (chr >= '0' && chr <= '9')
         {
-            std::string digit(&chr, 1);
-
-            if( first.empty() && last.empty())
-            {
-                first = digit;
-            }
-
-            last = digit;
+            if (!first)
+                first = chr - '0';
+            last = chr - '0' ;
         }
      }
-
-     std::string res_str = first + last;
-     unsigned int res = stoi(res_str);
-
-    return res;
+    return (first * 10) + last;
 }
 
 void testFindCalibrationValueP1()
@@ -55,47 +46,37 @@ void testFindCalibrationValueP1()
 
 // Make double digit int using first and last digits or digit-words found in source string
 auto findCalibrationValueP2(const std::string& input) -> unsigned int{
-    std::string first;
-    std::string last;
+    int first = 0, last = 0;
 
     for(const char& chr :input)
      {
-        std::string digit;
+        int digit = -1;
 
         if (chr >= '0' && chr <= '9')
         {
-            digit = std::string(&chr, 1);
+            digit = chr - '0';
         }
         else 
         {
             for( auto pair : digit_words )
             {
-                if(pair.first[0] == chr)
+                if (memcmp(&chr, pair.first, strlen(pair.first)) == 0)
                 {
-                    if( pair.first == std::string(&chr, pair.first.length()) )
-                    {
-                        digit = pair.second;
-                        break;
-                    }
+                    digit = pair.second;
+                    break;
                 }
             }
         }
 
-        if ( !digit.empty())
+        if (digit != -1) 
         {
-            if( first.empty() && last.empty())
-            {
+            if (!first)
                 first = digit;
-            }
-
             last = digit;
         }
      }
 
-    std::string res_str = first + last;
-    unsigned int res = stoi(res_str);
-
-    return res;
+    return (first * 10) + last;
 }
 
 void testFindCalibrationValueP2()
@@ -127,7 +108,7 @@ auto main() -> int
         testFindCalibrationValueP2();
 
         // load inputs from text file
-        std::vector<const std::string> inputs;
+        std::vector<std::string> inputs;
         auto success = readInput(inputs);
         assert(success);
         std::cout << "   " << inputs.size() << " inputs read from " << INPUTS_FILE << std::endl;
@@ -156,7 +137,7 @@ auto main() -> int
     catch(const std::exception& e)
     {
         std::cerr << e.what() << '\n';
-        __builtin_debugtrap();
+        __builtin_trap();
 
         return 1;
     }
