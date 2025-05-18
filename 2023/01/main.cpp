@@ -9,18 +9,22 @@
 
 // Make double digit int using first and last digits found in source string
 auto findCalibrationValueP1(const std::string& input) -> unsigned int{
-    int first = 0, last = 0;
+    int first = 0;
+    int last = 0;
+    const int ten = 10;
 
      for(const char& chr :input)
      {
         if (chr >= '0' && chr <= '9')
         {
-            if (!first)
+            if (first == 0)
+            {
                 first = chr - '0';
+            }
             last = chr - '0' ;
         }
      }
-    return (first * 10) + last;
+    return (first * ten) + last;
 }
 
 void testFindCalibrationValueP1()
@@ -46,7 +50,9 @@ void testFindCalibrationValueP1()
 
 // Make double digit int using first and last digits or digit-words found in source string
 auto findCalibrationValueP2(const std::string& input) -> unsigned int{
-    int first = 0, last = 0;
+    int first = 0;
+    int last = 0;
+    const int ten = 10;
 
     for(const char& chr :input)
      {
@@ -70,13 +76,15 @@ auto findCalibrationValueP2(const std::string& input) -> unsigned int{
 
         if (digit != -1) 
         {
-            if (!first)
+            if (first == 0)
+            {
                 first = digit;
+            }
             last = digit;
         }
      }
 
-    return (first * 10) + last;
+    return (first * ten) + last;
 }
 
 void testFindCalibrationValueP2()

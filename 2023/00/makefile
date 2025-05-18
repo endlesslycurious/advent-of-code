@@ -1,67 +1,33 @@
-# First attempt at a makefile, refrences:
-# - https://devblogs.microsoft.com/cppblog/now-announcing-makefile-support-in-visual-studio-code/
-# - https://makefiletutorial.com/#makefile-cookbook
-# - https://blog.djnavarro.net/posts/2023-06-30_makefiles/
-# - https://www.lucavall.in/blog/crafting-clean-maintainable-understandable-makefile-for-c-project
+# Use makefile to wrap CMake for a smoother workflow!
 
-# Insert homebrew installed LLVM at front of path, mainly to get bear intercepts to work
-export PATH := /opt/homebrew/opt/llvm/bin/:$(PATH)
+# Build directory
+BUILD_DIR := build
+EXEC_NAME := AoC-$(notdir $(CURDIR))
 
-# Build directory; intermediate files, symbols and binary
-TEMP=bin
+.PHONY: all configure build run clean tidy
 
-# Source and header filesets
-SRC=$(wildcard *.cpp)
-HDR=$(wildcard *.h)
+# Default target
+all: build
 
-# Name executable after parent directory e.g AoC-00, AoC-01, etc
-PROG=AoC-$(notdir $(CURDIR))
-PROG_OUT=$(TEMP)/$(PROG)
+# Configure CMake if needed
+$(BUILD_DIR)/Makefile:
+	cmake -S . -B $(BUILD_DIR)
 
-# Compiler options
-# - C++ 20
-# - Clang standard library
-# - Warnings as errors
-# - Extra warnings
-# - Debug symbols
-#CXX=clang++
-CFLAGS=--std=c++20 -Werror -Wall -Wextra -Wpedantic -Wshadow -g
-# Linker options
-# - Specify the homebrew install C++ libraries
-#LDFLAGS=-L/opt/homebrew/opt/llvm/lib/c++ -Wl,-rpath,/opt/homebrew/opt/llvm/lib/c++
-# Compile databse required for linting
-COMPDB=$(TEMP)/compile_commands.json
+# Build project (runs configure if needed)
+build: $(BUILD_DIR)/Makefile
+	cmake --build $(BUILD_DIR)
 
-# Linter options
-LINT=clang-tidy
-LINT_FLAGS=-checks=-*,bugprone-*,readability-*,modernize-* -p $(COMPDB)
+# Run the binary
+run: build
+	./$(BUILD_DIR)/$(EXEC_NAME)
 
-# Create build directory
-$(TEMP):
-	mkdir -p $(TEMP)
+# Run clang-tidy manually
+lint:
+	clang-tidy -p build \
+		--extra-arg=-isysroot \
+		--extra-arg=$(shell xcrun --show-sdk-path) \
+		main.cpp
 
-# Generate compile commands database for clang-tidy using bear
-$(COMPDB): makefile
-	mkdir -p $(TEMP)
-	bear --output $(COMPDB) -- make $(PROG_OUT)
-
-.PHONY: lint
-lint: $(COMPDB) $(SRC) $(HDR)
-	$(LINT) $(LINT_FLAGS) $(SRC) $(HDR)
-
-# Compile and link cpp to an executable
-$(PROG_OUT): $(TEMP) $(SRC) $(HDR) makefile
-	$(CXX) $(CFLAGS) $(SRC) -o $(PROG_OUT) 
-
-.PHONY: build
-build: $(COMPDB) $(PROG_OUT) lint
-
-# Launch the executable
-.PHONY: run
-run: $(PROG_OUT)
-	$(PROG_OUT)
-
-# Delete build directory
-.PHONY: clean
+# Remove build artifacts
 clean:
-	rm -rf $(TEMP)
+	rm -rf $(BUILD_DIR)

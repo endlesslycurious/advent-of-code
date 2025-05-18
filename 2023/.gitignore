@@ -1,5 +1,7 @@
 # ignore build files
 **/bin 
+**/build 
+**/cache 
 
 # ignore VSCode files
 **/.vscode

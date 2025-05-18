@@ -18,45 +18,50 @@ auto readGame(const std::string& input) -> Game
 
     while( std::getline(stream, token, ' '))
     {
+        // game identifier
         if( word_count == 1)
         {
             game.id = atoi(token.c_str());
-        }else if (word_count > 1) {
-            if ( (word_count & 1) == 1)
-            {
-                // odd = color
-                size_t token_length = token.size();
-                char last_ch = token[token_length - 1];
-                if( last_ch == ',' || last_ch ==';')
-                {
-                    --token_length;
-                }
+            word_count++;
+            continue;
+        }
 
-                if( strncmp("blue", token.c_str(), token_length) == 0)
-                {
-                    assert(round.blue == 0);
-                    round.blue = last_number;
-                }
-                else if( strncmp("green", token.c_str(), token_length) == 0)
-                {
-                    assert(round.green == 0);
-                    round.green = last_number;
-                }
-                else if( strncmp("red", token.c_str(), token_length) == 0)
-                {
-                    assert(round.red == 0);
-                    round.red = last_number;
-                }
+        // even = number
+        if ( (word_count & 1) != 1)
+        {
+            last_number = atoi(token.c_str());
+            word_count++;
+            continue;
+        }
 
-                if( last_ch != ',')
-                {
-                    game.rounds.push_back(round);
-                    round = {};
-                }
-            }else{
-                // even = number
-                last_number = atoi(token.c_str());
-            }
+        // odd = color
+        size_t token_length = token.size();
+        char last_ch = token[token_length - 1];
+        if( last_ch == ',' || last_ch ==';')
+        {
+            --token_length;
+        }
+
+        if( strncmp("blue", token.c_str(), token_length) == 0)
+        {
+            assert(round.blue == 0);
+            round.blue = last_number;
+        }
+        else if( strncmp("green", token.c_str(), token_length) == 0)
+        {
+            assert(round.green == 0);
+            round.green = last_number;
+        }
+        else if( strncmp("red", token.c_str(), token_length) == 0)
+        {
+            assert(round.red == 0);
+            round.red = last_number;
+        }
+
+        if( last_ch != ',')
+        {
+            game.rounds.push_back(round);
+            round = {};
         }
 
         word_count++;
@@ -97,7 +102,10 @@ auto main() -> int
         std::cout << "-- Beginning testing! --" << "\n";
 
         // process the inputs
-        Round limits = {14,13,12};
+        const int blue = 14;
+        const int green = 13;
+        const int red = 12;
+        Round limits = {blue,green,red};
         [[maybe_unused]] auto sum = process(inputs,limits);
         std::cout << "Sum: " << sum << '\n';
         assert(sum == INPUT_ANS);
