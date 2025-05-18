@@ -17,6 +17,7 @@ then
     touch "./$day/inputs.txt"
     touch "./$day/README.md"
 
+    cp ./00/CMakeLists.txt "./$day/CMakeLists.txt"
     cp ./00/makefile "./$day/makefile"
     cp ./00/*.cpp $day
     cp ./00/*.h $day
